@@ -79,12 +79,12 @@ If you develop/use MagCache in your projects and you would like more people to s
  **Demos**
 
 - **Wan2.1 14B T2V, 5s, 720P.**
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+  <!-- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
     <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
     <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
     <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
-  </div>
-  <video class="video" autoplay controls muted loop playsinline>
+  </div> -->
+  <video class="video" controls>
     <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
   </video>
   <p align="center" style="font-size:1.25em; margin:0.5em 0;">
@@ -135,7 +135,7 @@ If you develop/use MagCache in your projects and you would like more people to s
       <div style="text-align: center;">MagCache (4min43s) <br> PSNR: 25.38, 2.8x speedup</div>
       <div style="text-align: center;">MagCache (4min23s) <br> PSNR: 22.58, <b>3.0x</b> speedup</div>
     </div>
-    <video class="video" autoplay controls muted loop playsinline>
+    <video class="video" controls>
       <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
     </video>
     <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 5s, 480P.</span>
