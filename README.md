@@ -84,9 +84,8 @@ If you develop/use MagCache in your projects and you would like more people to s
     <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
     <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
   </div> -->
-  <video class="video" controls>
-    <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
-  </video>
+  https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4
+  
   <p align="center" style="font-size:1.25em; margin:0.5em 0;">
     Wan2.1 14B T2V, 5s, 720P.
   </p>
