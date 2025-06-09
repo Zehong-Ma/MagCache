@@ -77,26 +77,27 @@ If you develop/use MagCache in your projects and you would like more people to s
 - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md)
 
  **Demos**
-<div class="container is-max-desktop">
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-        <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
-        <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
-      <br>
-      <br>
-      <br>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+
+- **Wan2.1 14B T2V, 5s, 720P.**
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+    <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
+    <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
+    <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
+  </div>
+  <video class="video" autoplay controls muted loop playsinline>
+    <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
+  </video>
+  <p align="center" style="font-size:1.25em; margin:0.5em 0;">
+    Wan2.1 14B T2V, 5s, 720P.
+  </p>
+     
+      <!-- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
         <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
         <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
         <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/Wan14B_t2v_A_stylish_woman_Tokyo.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_A_stylish_woman_Tokyo.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
       <br>
@@ -109,7 +110,7 @@ If you develop/use MagCache in your projects and you would like more people to s
         <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/Wan1.3B_t2v_two_cat.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan1.3B_t2v_two_cat.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
       <br>
@@ -122,7 +123,7 @@ If you develop/use MagCache in your projects and you would like more people to s
         <!-- <div style="text-align: center;">MagCache (--) <br> PSNR: 22.58, 3.0x speedup</div> -->
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/Wan14B_i2v_720P_A_woman_in_black.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_720P_A_woman_in_black.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 3s, 720P.</span>
       <br>
@@ -135,7 +136,7 @@ If you develop/use MagCache in your projects and you would like more people to s
         <div style="text-align: center;">MagCache (4min23s) <br> PSNR: 22.58, <b>3.0x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 5s, 480P.</span>
       <br>
@@ -147,7 +148,7 @@ If you develop/use MagCache in your projects and you would like more people to s
         <div style="text-align: center;">MagCache (19min33s) <br> PSNR: 26.76, <b>2.8x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/HunyuanVideo_t2v_two_astronauts_three_col.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_two_astronauts_three_col.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 720P.</span>
       <br>
@@ -159,7 +160,7 @@ If you develop/use MagCache in your projects and you would like more people to s
         <div style="text-align: center;">MagCache (7min17s) <br> PSNR: 29.22, <b>2.8x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="./docs/static/videos/HunyuanVideo_t2v_a_couple_three.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_a_couple_three.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 540P.</span>
       <br>
@@ -186,7 +187,7 @@ If you develop/use MagCache in your projects and you would like more people to s
       </div>
       <br>
       <br>
-      <br>
+      <br> -->
 
 ## 🤖 Instructions for Supporting Other Models 
 - **Welcome for PRs to support other models.**

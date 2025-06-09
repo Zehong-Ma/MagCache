@@ -22,14 +22,14 @@
         <div style="text-align: center;">MagCache (7min17s) <br> PSNR: 29.22, <b>2.8x</b> speedup</div>
       </div>
       <video class="video" autoplay controls muted loop playsinline>
-        <source src="../docs/static/videos/HunyuanVideo_t2v_a_couple_four.mp4" type="video/mp4">
+        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_a_couple_four.mp4" type="video/mp4">
       </video>
       <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 540P.</span>
       <br>
       <br>
       <br>
-<video src="../docs/static/videos/HunyuanVideo_t2v_a_couple_four.mp4" controls controls style="width:100%; max-width:600px;"></video>
-<video src="../docs/static/videos/HunyuanVideo_t2v_two_astronauts.mp4" controls controls style="width:100%; max-width:600px;"></video>
+<video src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_a_couple_four.mp4" controls controls style="width:100%; max-width:600px;"></video>
+<video src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_two_astronauts.mp4" controls controls style="width:100%; max-width:600px;"></video>
 
 ## 📈 Inference Latency Comparisons on a Single A800 GPU
 
