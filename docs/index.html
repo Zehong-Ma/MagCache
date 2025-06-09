@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<meta property='og:title' content="MagCache: Fast Video Generation with Magnitude-Aware Cache"/>
+<meta property='og:description' content="MagCache: Fast Video Generation with Magnitude-Aware Cache"/>
+<meta property='og:url' content='https://Zehong-Ma.github.io/TeaCache/'/>
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='663' />
+<!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+<meta property="og:type" content='website'/>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MagCache: Fast Video Generation with Magnitude-Aware Cache">
+  <meta name="keywords" content="MagCache: Fast Video Generation with Magnitude-Aware Cache">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MagCache: Fast Video Generation with Magnitude-Aware Cache</title>
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/tab_gallery.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="stylesheet" href="juxtapose/css/juxtapose.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/magnifier.js"></script>
+  <link href="https://fonts.cdnfonts.com/css/menlo" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/image_card_fader.css">
+  <link rel="stylesheet" href="./static/css/image_card_slider.css">
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Patrick+Hand|Google+Sans|Noto+Sans|Castoro|Lato|Open+Sans&effect=shadow-multiple|emboss|3d"> 
+  <link rel="icon" href="./static/images/clock.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./static/images/clock.png" type="image/x-icon">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<style>
+  @import url('https://fonts.cdnfonts.com/css/menlo');
+
+  .video-table td, .video-table th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-weight: normal;
+  }
+  .first-col {
+    width: 7%;
+    vertical-align: middle;
+  }
+  .other-col {
+    width: 31%;
+  }
+  body {
+    font-family: "Lato", sans-serif;
+    font-size: 1.1em;
+  }
+  .title.is-3 {
+    font-weight: 900;
+    font-size: 2.0rem;
+  }
+  .title.is-4 {
+    font-weight: 700;
+    font-size: 1.7rem;
+  }
+  .custom-emoji {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-image: url('./static/images/clock.png');
+    background-size: cover;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+</style>
+
+
+<body>
+
+  <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <br><br>
+          <h1 class="title is-2 publication-title" style="font-size: 2.12rem">
+            MagCache: Fast Video Generation with Magnitude-Aware Cache
+          </h1>
+        
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zehong-ma.github.io/" target="_blank">Zehong Ma</a><sup>1,2</sup><sup>†</sup>,&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://joinwei-pku.github.io/longhuiwei.github.io/" target="_blank">Longhui Wei</a><sup>2</sup><sup>‡</sup>,&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=bKG4Un8AAAAJ&hl=zh-CN" target="_blank">Feng Wang</a><sup>2</sup>,&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://www.pkuvmc.com/" target="_blank">Shiliang Zhang</a><sup>1</sup><sup>*</sup>,&nbsp;
+            </span>
+            <span class="author-block">
+              <a href="https://www.qitian1987.com/" target="_blank">Qi Tian</a><sup>2</sup><sup>*</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Peking University,&nbsp;</span>
+            <span class="author-block"><sup>2</sup>Huawei Inc.</span>
+          </div>
+
+
+          <div class="is-size-5 publication-authors">
+            († Work was done during internship at Huawei Inc., ‡ Project Leader. * Corresponding author.)
+          </div>
+
+          <!-- <div class="is-size-5 publication-venue">
+            in XXX
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Zehong-Ma/MagCache" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- paper -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2411.19108" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <!-- bibtex -->
+              <span class="link-block">
+                <a href="#bibtex"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-obp"></i>
+                  </span>
+                  <span>BibTex</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="content has-text-centered">
+          <img src="./static/images/intro_demo_image.png" style="width: 100%;"><br>
+          <span style="font-size: 0.8em; width: 100%; display: inline-block;">Figure 1: Visualization of MagCache on Open-Sora and Wan2.1. Our MagCache can achieve better visual quality with a comparable or less latency. </span>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </section>
+  <!-- End teaser video -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop is-centered has-text-centered">
+        <!-- <div class="columns is-centered has-text-centered"> -->
+        <!-- <div class="column is-four-fifths"> -->
+        <h2 class="title is-3">Abstract</h2>
+        <!-- <h2 class="title is-3">Abstract</h2> -->
+        <div class="content has-text-justified">
+          <p>
+            Existing acceleration techniques for video diffusion models often rely on uniform heuristics or time-embedding variants to skip timesteps and reuse cached features. These approaches typically require extensive calibration with curated prompts and risk inconsistent outputs due to prompt-specific overfitting. In this paper, we introduce a novel and robust discovery: a unified magnitude law observed across different models and prompts. Specifically, the magnitude ratio of successive residual outputs decreases monotonically, steadily in most timesteps while rapidly in the last several steps. Leveraging this insight, we introduce a Magnitude-aware Cache (MagCache) that adaptively skips unimportant timesteps using an error modeling mechanism and adaptive caching strategy. Unlike existing methods requiring dozens of curated samples for calibration, MagCache only requires a single sample for calibration. Experimental results show that MagCache achieves 2.68× and 2.82x speedups on Wan 2.1 and HunyuanVideo, respectively, while preserving superior visual fidelity. It significantly outperforms existing methods in LPIPS, SSIM, and PSNR, under comparable computational budgets.
+          </p>
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Magnitude-Aware Cache (MagCache)</h2>
+        
+        <h2 class="title is-4">Motivation</h2>
+        <div class="content has-text-justified">
+          <p>
+            Existing methods for accelerating video diffusion models via timestep skipping generally fall into two categories: uniform heuristic strategies and adaptive approaches based on prompt-specific calibration. Uniform strategies lack accuracy because they treat all timesteps equally, ignoring the dynamic nature of residual changes during the denoising process. In contrast, adaptive methods like TeaCache attempt to model residual differences using polynomial fitting, but they require extensive calibration on dozens of curated prompts—introducing risks of overfitting and limiting generalization.
+            <b>In this work, we uncover a simple yet robust magnitude decay law that governs the similarity of residual outputs across timesteps: the magnitude ratio between adjacent residuals decreases steadily in early steps and more sharply in later ones. Additionally, both the standard deviation of this magnitude ratio and the token-wise cosine distance remain close to zero throughout most early steps. This suggests that residual differences between adjacent steps are closely tied to the magnitude ratio.</b>
+            These patterns are consistent across various prompts and model variants, making magnitude a reliable and robust indicator of residual difference. Leveraging these insights, we introduce Magnitude-aware Cache (MagCache), a simple yet effective approach, for accelerating video generation.
+          </p>
+          
+          <div class="content has-text-centered">
+            <img src="./static/images/final_intro.png" style="width: 95%;"><br>
+            <span style="font-size: 0.8em; width: 100%; display: inline-block;">Figure 2: Relationships between residuals across diffusion timesteps. Magnitude ratio serves as both an accurate and stable criterion for measuring the difference between residuals.</span>
+          </div>
+        </div>
+
+        <h2 class="title is-4">Implementation</h2>
+        <div class="content has-text-justified">
+          <p>
+            MagCache uses a single random prompt to calibrate the importance of timesteps. Based on the resulting magnitude curve, it dynamically skips unimportant steps through accurate error modeling and an adaptive caching strategy. Compared to existing methods, our approach significantly accelerates video generation and achieves superior visual quality, while eliminating the need for costly prompt engineering and calibration.
+          </p>
+          <div class="content has-text-centered">
+            <img src="./static/images/architecture.png"  style="width: 85%;"><br>
+            <span style="font-size: 0.8em; width: 100%; display: inline-block;">Figure 3: MagCache
+              is capable of adaptively caching the important intermediate output residual during the inference process.</span>
+          </div>
+          
+        </div>
+
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Evaluations</h2>
+        
+        <h2 class="title is-4">Quantitative Results</h2>
+        <div class="content has-text-centered">
+          <img src="./static/images/evaluation_result1.png", style="width: 90%;">
+          <br>
+          <br>
+          <img src="./static/images/evaluation_result2.png", style="width: 90%;">
+        </div>
+      </div>
+    </div>
+
+    
+    <h2 class="title is-4">Visual Results</h2>
+    <div class="container is-max-desktop">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
+        <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
+        <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
+      <br>
+      <br>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
+        <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
+        <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/Wan14B_t2v_A_stylish_woman_Tokyo.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
+      <br>
+      <br>
+      <br>
+
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">Wan2.1 1.3B T2V (189s)</div>
+        <div style="text-align: center;">TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</div>
+        <div style="text-align: center;">MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</div>
+        <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/Wan1.3B_t2v_two_cat.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
+      <br>
+      <br>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">Wan2.1 14B I2V (30min40s)</div>
+        <div style="text-align: center;">TeaCache (13min04s) <br> PSNR: 13.67, 2.3x speedup</div>
+        <div style="text-align: center;">MagCache (10min03s) <br> PSNR: 23.67, <b>3.0x</b> speedup</div>
+        <!-- <div style="text-align: center;">MagCache (--) <br> PSNR: 22.58, 3.0x speedup</div> -->
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/Wan14B_i2v_720P_A_woman_in_black.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 3s, 720P.</span>
+      <br>
+      <br>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">Wan2.1 14B I2V (13min20s)</div>
+        <div style="text-align: center;">TeaCache (5min22s) <br> PSNR: 20.04, 2.5x speedup</div>
+        <div style="text-align: center;">MagCache (4min43s) <br> PSNR: 25.38, 2.8x speedup</div>
+        <div style="text-align: center;">MagCache (4min23s) <br> PSNR: 22.58, <b>3.0x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 5s, 480P.</span>
+      <br>
+      <br>
+      <br>
+
+      <!-- <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">HunyuanVideo T2V (54min)</div>
+        <div style="text-align: center;">TeaCache (24min) <br>  2.3x speedup</div>
+        <div style="text-align: center;">MagCache (24min) <br>  2.3x speedup</div>
+        <div style="text-align: center;">MagCache (19.5min) <br> 2.8x speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/HunyuanVideo_t2v_two_astronauts.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 720P.</span>
+      <br>
+      <br>
+      <br> -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">HunyuanVideo T2V (54min05s)</div>
+        <div style="text-align: center;">TeaCache (23min49s) <br> PSNR: 22.80, 2.3x speedup</div>
+        <div style="text-align: center;">MagCache (19min33s) <br> PSNR: 26.76, <b>2.8x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/HunyuanVideo_t2v_two_astronauts_three_col.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 720P.</span>
+      <br>
+      <br>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">HunyuanVideo T2V (20min10s)</div>
+        <div style="text-align: center;">TeaCache (8min53s) <br> PSNR: 23.10, 2.3x speedup</div>
+        <div style="text-align: center;">MagCache (7min17s) <br> PSNR: 29.22, <b>2.8x</b> speedup</div>
+      </div>
+      <video class="video" autoplay controls muted loop playsinline>
+        <source src="./static/videos/HunyuanVideo_t2v_a_couple_three.mp4" type="video/mp4">
+      </video>
+      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 540P.</span>
+      <br>
+      <br>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">FLUX-dev (14.26s)</div>
+        <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
+        <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
+      </div>
+      <div class="content has-text-centered">
+        <img src="./static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+        <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, bicycle.</span>
+      </div>
+      <br>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+        <div style="text-align: center;">FLUX-dev (14.26s)</div>
+        <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
+        <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
+      </div>
+      <div class="content has-text-centered">
+        <img src="./static/images/flux_dev_clock.png" style="width: 100%"><br>
+        <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, clock.</span>
+      </div>
+      <br>
+      <br>
+      <br>
+
+
+
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title"><a id="bibtex">BibTeX</a></h2>
+    <pre><code>@misc{zehongma_magcache,
+      title={MagCache: Fast Video Generation with Magnitude-Aware Cache},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website adapted from the following <a href="https://nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="juxtapose/js/juxtapose.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>    
+
+</body>
+</html>
