@@ -19,7 +19,7 @@
 </div>
 
 <div class="is-size-5 publication-authors", align="center",>
-  <span class="author-block"><sup>1</sup>Peking University,&nbsp;</span>
+  <span class="author-block"><sup>1</sup>State Key Laboratory of Multimedia Information Processing, <br>School of Computer Science, Peking University,&nbsp;</span>
   <span class="author-block"><sup>2</sup>Huawei Inc.</span>
 </div>
 
@@ -57,8 +57,8 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
 
 - [2025/6/10] 🔥 Support [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Open-Sora](https://github.com/hpcaitech/Open-Sora).
-- [2025/6/10] 🎉 Release the [code](https://github.com/LiewFeng/MagCache) of MagCache.
-- [2025/6/10] 🎉 Release the [paper](https://arxiv.org/abs/2411.19108) of MagCache.
+- [2025/6/10] 🎉 Release the [code](https://github.com/Zehong-Ma/MagCache) of MagCache.
+- [2025/6/10] 🎉 Release the [paper](--) of MagCache.
 
 ## 🧩 Community Contributions  
 If you develop/use MagCache in your projects and you would like more people to see it, please inform us.(zehongma@stu.pku.edu.cn)
