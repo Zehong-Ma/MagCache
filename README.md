@@ -78,21 +78,12 @@ If you develop/use MagCache in your projects and you would like more people to s
 
  **Demos**
 - **HunyuanVideo T2V 720P**
-<table>
-  <thead>
-    <tr>
-      <th>Wan2.1 14B T2V (60min04s)</th>
-      <th>TeaCache (30min01s)<br>PSNR: 17.39, 2.0x speedup</th>
-      <th>MagCache (21min40s)<br>PSNR: 24.39, <b>2.8x</b> speedup</th>
-    </tr>
-  </thead>
-</table>
 
-<table style="width:100%; text-align:center; font-size:0.7em;">
+<table style="width:150%; text-align:center; font-size:0.7em;">
   <tr>
-    <td>HunyuanVideo T2V (54min05s)</td>
-    <td>TeaCache (23min49s)<br>PSNR: 22.80, 2.3x speedup</td>
-    <td>MagCache (19min33s)<br>PSNR: 26.76, <b>2.8x</b> speedup</td>
+    <td style="width: 50%; text-align: center;">HunyuanVideo T2V (54min05s)</td>
+    <td style="width: 50%; text-align: center;">TeaCache (23min49s)<br>PSNR: 22.80, 2.3x speedup</td>
+    <td style="width: 50%; text-align: center;">MagCache (19min33s)<br>PSNR: 26.76, <b>2.8x</b> speedup</td>
   </tr>
 </table>
 <div align="center">
