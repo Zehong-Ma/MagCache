@@ -77,7 +77,10 @@ If you develop/use MagCache in your projects and you would like more people to s
 - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md)
 
  **Demos**
-
+- **HunyuanVideo T2V 720P**
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/a815048a-b25b-4c4a-8742-6c19ab572fbb" width="100%" poster=""> </video>
+</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>HunyuanVideo T2V (54min05s)</td>
@@ -85,13 +88,12 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (19min33s)<br>PSNR: 26.76, <b>2.8x</b> speedup</td>
   </tr>
 </table>
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/7afc8965-3887-43b5-aa17-ef68c7cb8381" width="100%" poster=""> </video>
-</div>
-<p align="center" style="font-size:1.25em; margin:0.0em 0;">
-HunyuanVideo T2V, 5s, 720P.
-</p>
 
+- **Wan2.1 14B I2V 720P**
+
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>Wan2.1 14B I2V (30min40s)</td>
@@ -100,65 +102,55 @@ HunyuanVideo T2V, 5s, 720P.
   </tr>
 </table>
 
-<video class="video" autoplay controls muted loop playsinline>
-  <source src="https://github.com/user-attachments/assets/ef78ed4b-31af-42db-83d5-b79cb62edaaf" type="video/mp4">
-</video>
-<p align="center" style="font-size:1.25em; margin:0.5em 0;">
-Wan2.1 I2V, 3s, 720P.
-</p>
+- **Wan2.1 14B T2V 720P**
 
-<div style="font-size: 1.0em;">
-  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
-    Wan2.1 14B T2V (60min04s)
-  </div>
-  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
-    TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup
-  </div>
-  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
-    MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup
-  </div>
-</div>
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/7afc8965-3887-43b5-aa17-ef68c7cb8381" width="100%" poster=""> </video>
+  <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
 </div>
-<p align="center" style="font-size:1.25em; margin:0.5em 0;">
-  Wan2.1 14B T2V, 5s, 720P.
-</p>
-  
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B T2V (60min04s)</td>
+    <td>TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</td>
+    <td>MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
 
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-    <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-    <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
-    <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
-  </div>
-  <video class="video" autoplay controls muted loop playsinline>
-    <source src="https://github.com/user-attachments/assets/3d8c6719-de84-447d-8741-d38289fe35cd" type="video/mp4">
-  </video>
-  <p align="center" style="font-size:1.25em; margin:0.5em 0;">
-    Wan2.1 14B T2V, 5s, 720P.
-  </p>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+</div>
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B T2V (60min04s)</td>
+    <td>TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</td>
+    <td>MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
 
-  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-    <div style="text-align: center;">Wan2.1 1.3B T2V (189s)</div>
-    <div style="text-align: center;">TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</div>
-    <div style="text-align: center;">MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</div>
-    <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
-  </div>
-  <video class="video" autoplay controls muted loop playsinline>
-    <source src="https://github.com/user-attachments/assets/ccbd89bb-593d-44e2-bd69-46f7a69b8160" type="video/mp4">
-  </video>
-  <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
+- **Wan2.1 1.3B T2V 480P**
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
+</div>
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 1.3B T2V (189s)</td>
+    <td>TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</td>
+    <td>MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</td>
+    <td>MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
 
-    
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-    <div style="text-align: center;">FLUX-dev (14.26s)</div>
-    <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
-    <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
-  </div>
-  <div class="content has-text-centered">
-    <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, bicycle.</span>
-  </div>
+- **FLUX-dev T2I**
+
+<div class="content has-text-centered">
+  <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+</div>
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>FLUX-dev (14.26s)</td>
+    <td>TeaCache (5.65s), <br> 2.5x sppedup</td>
+    <td>MagCache (5.05s), <br> <b>2.8x</b> sppedup</td>
+  </tr>
+</table>
 
 ## 🤖 Instructions for Supporting Other Models 
 - **Welcome for PRs to support other models.**
