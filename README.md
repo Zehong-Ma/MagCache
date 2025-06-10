@@ -107,19 +107,17 @@ HunyuanVideo T2V, 5s, 720P.
 Wan2.1 I2V, 3s, 720P.
 </p>
 
-<table>
-  <tr>
-    <td align="center" width="33%">
-      Wan2.1 14B T2V (60min04s)
-    </td>
-    <td align="center" width="33%">
-      TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup
-    </td>
-    <td align="center" width="33%">
-      MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup
-    </td>
-  </tr>
-</table>
+<div style="font-size: 1.0em;">
+  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
+    Wan2.1 14B T2V (60min04s)
+  </div>
+  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
+    TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup
+  </div>
+  <div style="display: inline-block; width: 30%; text-align: center; vertical-align: top;">
+    MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup
+  </div>
+</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/7afc8965-3887-43b5-aa17-ef68c7cb8381" width="100%" poster=""> </video>
 </div>
