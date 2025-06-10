@@ -34,7 +34,7 @@
 <!-- [![arXiv](https://img.shields.io/badge/Arxiv-2411.19108-b31b1b.svg?logo=arXiv)](---)  -->
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://zehong-ma.github.io/MagCache/) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](./LICENSE) 
-[![github](https://img.shields.io/github/stars/LiewFeng/MagCache.svg?style=social)](https://github.com/Zehong-Ma/MagCache/)
+[![github](https://img.shields.io/github/stars/Zehong-Ma/MagCache.svg?style=social)](https://github.com/Zehong-Ma/MagCache/)
 
 </h5>
 
@@ -78,115 +78,76 @@ If you develop/use MagCache in your projects and you would like more people to s
 
  **Demos**
 
-- **Wan2.1 14B T2V, 5s, 720P.**
-  <!-- <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-    <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-    <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
-    <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
-  </div> -->
-  https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4
-  
-  <p align="center" style="font-size:1.25em; margin:0.5em 0;">
-    Wan2.1 14B T2V, 5s, 720P.
-  </p>
-     
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-      <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
-      <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
-    </div>
-    <video class="video" autoplay controls muted loop playsinline>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_A_stylish_woman_Tokyo.mp4" type="video/mp4">
-    </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">Wan2.1 1.3B T2V (189s)</div>
-      <div style="text-align: center;">TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</div>
-      <div style="text-align: center;">MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</div>
-      <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
-    </div>
-    <video class="video" autoplay controls muted loop playsinline>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan1.3B_t2v_two_cat.mp4" type="video/mp4">
-    </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+|                            |                            |                            |
+|:--------------------------:|:--------------------------:|:--------------------------:|
+| **HunyuanVideo T2V** <br> *(54min05s)* | **TeaCache** <br> *(23min49s)*  <br> PSNR: 22.80, 2.3× speedup | **MagCache** <br> *(19min33s)*  <br> PSNR: 26.76, **2.8×** speedup |
+
+<video class="video" autoplay controls muted loop playsinline>
+  <source src="https://private-user-images.githubusercontent.com/80336167/453056257-a3cc8f04-9d1a-4517-98b9-55a2438a2f5a.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDk0ODEyMjQsIm5iZiI6MTc0OTQ4MDkyNCwicGF0aCI6Ii84MDMzNjE2Ny80NTMwNTYyNTctYTNjYzhmMDQtOWQxYS00NTE3LTk4YjktNTVhMjQzOGEyZjVhLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjA5VDE0NTUyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTNhMDhjZGNkODQ1MTc1NmQ0NzViYzhkNTZlMTRhYWJlYTM5Nzk1YzY3ODRjZDhiMjJhZjM4NTFiNWE1ZGUyYmUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.cxVkj1E4cC1FHCvg3mnfrRj88AA6MvNmWZ7ZuLocKdM" type="video/mp4">
+</video>
+<p align="center" style="font-size:1.25em; margin:0.5em 0;">
+HunyuanVideo T2V, 5s, 720P.
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
       <div style="text-align: center;">Wan2.1 14B I2V (30min40s)</div>
       <div style="text-align: center;">TeaCache (13min04s) <br> PSNR: 13.67, 2.3x speedup</div>
       <div style="text-align: center;">MagCache (10min03s) <br> PSNR: 23.67, <b>3.0x</b> speedup</div>
       <!-- <div style="text-align: center;">MagCache (--) <br> PSNR: 22.58, 3.0x speedup</div> -->
     </div>
     <video class="video" autoplay controls muted loop playsinline>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_720P_A_woman_in_black.mp4" type="video/mp4">
+      <source src="https://private-user-images.githubusercontent.com/80336167/453056422-7800305a-1efd-49e6-8087-00c583b171a3.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDk0ODEyMjQsIm5iZiI6MTc0OTQ4MDkyNCwicGF0aCI6Ii84MDMzNjE2Ny80NTMwNTY0MjItNzgwMDMwNWEtMWVmZC00OWU2LTgwODctMDBjNTgzYjE3MWEzLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjA5VDE0NTUyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWQ5MGIyNDVjMDFhYTM3NGQzOGM2YTNmMDJlNmNhMWFlYTIzNjViMGI0NmI0MjRiMTMyOTI1ZTVlZmRkYTdlNmQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.PYlR4DMMMBOnUHv0p8RvkO4xzfF7TIjpQJeP_nSjIyM" type="video/mp4">
     </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 3s, 720P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">Wan2.1 14B I2V (13min20s)</div>
-      <div style="text-align: center;">TeaCache (5min22s) <br> PSNR: 20.04, 2.5x speedup</div>
-      <div style="text-align: center;">MagCache (4min43s) <br> PSNR: 25.38, 2.8x speedup</div>
-      <div style="text-align: center;">MagCache (4min23s) <br> PSNR: 22.58, <b>3.0x</b> speedup</div>
-    </div>
-    <video class="video" controls>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
-    </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 5s, 480P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">HunyuanVideo T2V (54min05s)</div>
-      <div style="text-align: center;">TeaCache (23min49s) <br> PSNR: 22.80, 2.3x speedup</div>
-      <div style="text-align: center;">MagCache (19min33s) <br> PSNR: 26.76, <b>2.8x</b> speedup</div>
-    </div>
-    <video class="video" autoplay controls muted loop playsinline>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_two_astronauts_three_col.mp4" type="video/mp4">
-    </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 720P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">HunyuanVideo T2V (20min10s)</div>
-      <div style="text-align: center;">TeaCache (8min53s) <br> PSNR: 23.10, 2.3x speedup</div>
-      <div style="text-align: center;">MagCache (7min17s) <br> PSNR: 29.22, <b>2.8x</b> speedup</div>
-    </div>
-    <video class="video" autoplay controls muted loop playsinline>
-      <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/HunyuanVideo_t2v_a_couple_three.mp4" type="video/mp4">
-    </video>
-    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">HunyuanVideo T2V, 5s, 540P.</span>
-    <br>
-    <br>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">FLUX-dev (14.26s)</div>
-      <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
-      <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
-    </div>
-    <div class="content has-text-centered">
-      <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, bicycle.</span>
-    </div>
-    <br>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-      <div style="text-align: center;">FLUX-dev (14.26s)</div>
-      <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
-      <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
-    </div>
-    <div class="content has-text-centered">
-      <img src="./docs/static/images/flux_dev_clock.png" style="width: 100%"><br>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, clock.</span>
-    </div>
-    <br>
-    <br>
-    <br>
+    <p align="center" style="font-size:1.25em; margin:0.5em 0;">
+    Wan2.1 I2V, 3s, 720P.
+    </p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+    <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
+    <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
+    <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
+  </div>
+  <video class="video" controls>
+    <source src="https://private-user-images.githubusercontent.com/80336167/453056581-dedd4ba3-3bc2-4d3f-9f6a-a70d14047ab3.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDk0ODEyMjQsIm5iZiI6MTc0OTQ4MDkyNCwicGF0aCI6Ii84MDMzNjE2Ny80NTMwNTY1ODEtZGVkZDRiYTMtM2JjMi00ZDNmLTlmNmEtYTcwZDE0MDQ3YWIzLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjA5VDE0NTUyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTgwMTBmYzVjYjlkYzk4YTI1ZjBlZjlkZmEyMzAwYjA4ZDAwYzRlMmYwYjQ5M2M3YzBhZmZhYmZlODEzYzc2ZjEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.6p9dN0elYJIErZEwxszMSzcC4kDYsZgMrYBrR0RfkjY" type="video/mp4">
+  </video>
+  <p align="center" style="font-size:1.25em; margin:0.5em 0;">
+    Wan2.1 14B T2V, 5s, 720P.
+  </p>
+  
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+    <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
+    <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
+    <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
+  </div>
+  <video class="video" autoplay controls muted loop playsinline>
+    <source src="https://private-user-images.githubusercontent.com/80336167/453056622-66a5b5e4-d2e7-42ec-aef3-ae8a74d229a9.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDk0ODE0OTYsIm5iZiI6MTc0OTQ4MTE5NiwicGF0aCI6Ii84MDMzNjE2Ny80NTMwNTY2MjItNjZhNWI1ZTQtZDJlNy00MmVjLWFlZjMtYWU4YTc0ZDIyOWE5Lm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MDklMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjA5VDE0NTk1NlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY0NjdiNWJiZGUzZGI3MWM1OGYyNzkyNDNjMmY5OTIyNzhmYzA0MjNkYzFiZDVlNDNlOGFmYjU5ODViNTk3M2QmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.fWgQViCpMxhxef8Tqadqib9nhpBUTGMuAbKrRJGTYBY" type="video/mp4">
+  </video>
+  <p align="center" style="font-size:1.25em; margin:0.5em 0;">
+    Wan2.1 14B T2V, 5s, 720P.
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+    <div style="text-align: center;">Wan2.1 1.3B T2V (189s)</div>
+    <div style="text-align: center;">TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</div>
+    <div style="text-align: center;">MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</div>
+    <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
+  </div>
+  <video class="video" autoplay controls muted loop playsinline>
+    <source src="https://github.com/user-attachments/assets/cd20fcc3-b5ff-4eb5-8d99-181a3f862b24" type="video/mp4">
+  </video>
+  <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
+
+    
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
+    <div style="text-align: center;">FLUX-dev (14.26s)</div>
+    <div style="text-align: center;">TeaCache (5.65s), 2.5x</div>
+    <div style="text-align: center;">MagCache (5.05s), 2.8x</div>
+  </div>
+  <div class="content has-text-centered">
+    <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+    <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">FLUX-dev, bicycle.</span>
+  </div>
 
 ## 🤖 Instructions for Supporting Other Models 
 - **Welcome for PRs to support other models.**
@@ -201,8 +162,8 @@ This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/V
 
 ## 🔒 License 
 
-* The majority of this project is released under the Apache 2.0 license as found in the [LICENSE](./LICENSE) file.
-* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
+* The core code of this project is released under the Apache 2.0 license as found in the [LICENSE](./LICENSE) file. The core code includes the calibration and forward code of MagCache.
+* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
 
 ## 📖 Citation 
 If you find MagCache is useful in your research or applications, please consider giving us a star ⭐ and citing it by the following BibTeX entry.
