@@ -226,7 +226,7 @@ def teacache_forward(
 
         return x
 
-def ada_forward(
+def magcache_forward(
         self, x, timestep, all_timesteps, y, mask=None, x_mask=None, fps=None, height=None, width=None, **kwargs
     ):
         # === Split batch ===
@@ -299,7 +299,7 @@ def ada_forward(
             self.accumulated_sim = self.accumulated_sim*cur_scale
             self.accumulated_steps += 1
             self.accumulated_err += 1-self.accumulated_sim
-            if self.accumulated_err<=self.adacache_thresh and self.accumulated_steps<=1:
+            if self.accumulated_err<=self.magcache_thresh and self.accumulated_steps<=self.K:
                 residual_x = self.residual_cache[..., -1]
                 skip_forward = True
             else:
@@ -415,23 +415,26 @@ def eval_ours(prompt_list):
     config = OpenSoraConfig(transformer, vae, text_encoder)
     engine = VideoSysEngine(config)
 
-    engine.driver_worker.transformer.__class__.enable_adacache = True
-    engine.driver_worker.transformer.__class__.forward = ada_forward
-    engine.driver_worker.transformer.__class__.adacache_thresh = 0.12
+    engine.driver_worker.transformer.__class__.enable_magcache = True
+    engine.driver_worker.transformer.__class__.forward = magcache_forward
+    engine.driver_worker.transformer.__class__.magcache_thresh = 0.12
+    engine.driver_worker.transformer.__class__.K = 3
+    engine.driver_worker.transformer.__class__.skip_time = 6 # 30*0.2=6, retention ratio
+    
     engine.driver_worker.transformer.__class__.t = 0
     engine.driver_worker.transformer.__class__.residual_cache = None
     engine.driver_worker.transformer.__class__.accumulated_err = 0#[0,0]
     engine.driver_worker.transformer.__class__.accumulated_sim = 1#[1,1]
     engine.driver_worker.transformer.__class__.accumulated_steps = 0#[0,0]
     engine.driver_worker.transformer.__class__.skip_steps = 0
-    engine.driver_worker.transformer.__class__.skip_time = 6
+    
     engine.driver_worker.transformer.__class__.cache_time = 4
     import numpy as np
     engine.driver_worker.transformer.__class__.ratio = np.array([0.93359, 0.96484, 0.99609, 1.0, 0.99609, 0.99609, 0.99219, 1.0, 1.0, 0.99609, 0.99219, 1.0, 0.99219, 0.99609, 0.99219, 0.99609, 0.99609, 0.99609, 0.99219, 0.99219, 0.99219, 0.98828, 0.98828, 0.98438, 0.98438, 0.97656, 0.97656, 0.96484, 0.96484])**(0.5)
     engine.driver_worker.transformer.__class__.residual_cos, engine.driver_worker.transformer.__class__.residual_cos2, engine.driver_worker.transformer.__class__.residual_cos3 = [], [], []
     engine.driver_worker.transformer.__class__.residual_ratio1, engine.driver_worker.transformer.__class__.residual_ratio2, engine.driver_worker.transformer.__class__.residual_ratio3 = [], [], []
     engine.driver_worker.transformer.__class__.residual_std1, engine.driver_worker.transformer.__class__.residual_std2, engine.driver_worker.transformer.__class__.residual_std3 = [], [], []
-    generate_func(engine, prompt_list, "./samples/opensora_ours_006_max1step", loop=1)
+    generate_func(engine, prompt_list, "./samples/opensora_ours_012_max3step", loop=1)
 
 if __name__ == "__main__":
 

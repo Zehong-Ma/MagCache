@@ -14,30 +14,35 @@
 |:--------------------------:|:----------------------------:|:---------------------:|
 |         ~60min04s          |           ~30min01s          |     ~21min40s         |
 
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-        <div style="text-align: center;">TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</div>
-        <div style="text-align: center;">MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</div>
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_two_astronauts.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
-      <br>
-      <br>
-      <br>
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 14B T2V (60min04s)</div>
-        <div style="text-align: center;">TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</div>
-        <div style="text-align: center;">MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</div>
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_t2v_A_stylish_woman_Tokyo.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 14B T2V, 5s, 720P.</span>
-      <br>
-      <br>
-      <br>
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B T2V (60min04s)</td>
+    <td>TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</td>
+    <td>MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
+The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
+</details>
+
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B T2V (60min04s)</td>
+    <td>TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</td>
+    <td>MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A stylish woman walks down a Tokyo street filled with warm glowing neon....</summary>
+A stylish woman walks down a Tokyo street filled with warm glowing neon and animated city signage. She wears a black leather jacket, a long red dress, and black boots, and carries a black purse. She wears sunglasses and red lipstick. She walks confidently and casually. The street is damp and reflective, creating a mirror effect of the colorful lights. Many pedestrians walk about.
+</details>
 
 ### Wan2.1 T2V 1.3B 480p
 
@@ -45,57 +50,64 @@
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~189 s             |        ~95 s                 |     ~87 s             |     ~68 s             |
 
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 1.3B T2V (189s)</div>
-        <div style="text-align: center;">TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</div>
-        <div style="text-align: center;">MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</div>
-        <div style="text-align: center;">MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</div>
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan1.3B_t2v_two_cat.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 1.3B T2V, 5s, 480P.</span>
-      <br>
-      <br>
-      <br>
+
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 1.3B T2V (189s)</td>
+    <td>TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</td>
+    <td>MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</td>
+    <td>MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.</summary>
+Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.
+</details>
 
 ### Wan2.1 I2V 14B 720p
 
 |      Wan2.1 i2v 720P ours     |        TeaCache (0.5)     |  MagCache (E012K4R02) | MagCache (E024K6R02)  |
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~30min40s            |        ~13min04s           |     ~11min35s         |        ~10min03s      |
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 14B I2V (30min40s)</div>
-        <div style="text-align: center;">TeaCache (13min04s) <br> PSNR: 13.67, 2.3x speedup</div>
-        <div style="text-align: center;">MagCache (10min03s) <br> PSNR: 23.67, <b>3.0x</b> speedup</div>
-        <!-- <div style="text-align: center;">MagCache (--) <br> PSNR: 22.58, 3.0x speedup</div> -->
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_720P_A_woman_in_black.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 3s, 720P.</span>
-      <br>
-      <br>
-      <br>
+
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B I2V (30min40s)</td>
+    <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
+    <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>
+A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors. Stark chiaroscuro lighting highlights her sharp features as she tilts her head, crimson lips parting in a knowing smile. Her smoldering gaze meets the viewer while she turns gracefully, lace casting shifting shadows on the walls. A medium shot with a subtle dolly zoom, framed by velvet drapes, adds depth. The mysterious, refined atmosphere blends modern elegance with vintage Hollywood glamour, rendered in 8K hyper-realistic detail, metallic gold accents glowing in the soft light.
+</details>
 
 ### Wan2.1 I2V 14B 480P
 
 |      Wan2.1 i2v 480P ours     |    TeaCache (0.26)  |    MagCache (E012K4R02)    |    MagCache (E024K6R02)    |
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~13min20s             |        ~5min22s     |     4min43s                 |     ~4min23s          |
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; place-items: center; font-size: 1.0em;">
-        <div style="text-align: center;">Wan2.1 14B I2V (13min20s)</div>
-        <div style="text-align: center;">TeaCache (5min22s) <br> PSNR: 20.04, 2.5x speedup</div>
-        <div style="text-align: center;">MagCache (4min43s) <br> PSNR: 25.38, 2.8x speedup</div>
-        <div style="text-align: center;">MagCache (4min23s) <br> PSNR: 22.58, <b>3.0x</b> speedup</div>
-      </div>
-      <video class="video" autoplay controls muted loop playsinline>
-        <source src="https://github.com/Zehong-Ma/MagCache/blob/main/docs/static/videos/Wan14B_i2v_480P_A_woman_in_black.mp4" type="video/mp4">
-      </video>
-      <span style="font-size: 1.5em; width: 100%; display: inline-block; text-align: center;">Wan2.1 I2V, 5s, 480P.</span>
-      <br>
-      <br>
-      <br>
+
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>Wan2.1 14B I2V (30min40s)</td>
+    <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
+    <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>
+A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors. Stark chiaroscuro lighting highlights her sharp features as she tilts her head, crimson lips parting in a knowing smile. Her smoldering gaze meets the viewer while she turns gracefully, lace casting shifting shadows on the walls. A medium shot with a subtle dolly zoom, framed by velvet drapes, adds depth. The mysterious, refined atmosphere blends modern elegance with vintage Hollywood glamour, rendered in 8K hyper-realistic detail, metallic gold accents glowing in the soft light.
+</details>
 
 ## Usage
 

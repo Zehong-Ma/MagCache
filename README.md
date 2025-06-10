@@ -78,9 +78,6 @@ If you develop/use MagCache in your projects and you would like more people to s
 
  **Demos**
 - **HunyuanVideo T2V 720P**
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/a815048a-b25b-4c4a-8742-6c19ab572fbb" width="100%" poster=""> </video>
-</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>HunyuanVideo T2V (54min05s)</td>
@@ -88,12 +85,16 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (19min33s)<br>PSNR: 26.76, <b>2.8x</b> speedup</td>
   </tr>
 </table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/a815048a-b25b-4c4a-8742-6c19ab572fbb" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
+The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
+</details>
 
 - **Wan2.1 14B I2V 720P**
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
-</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>Wan2.1 14B I2V (30min40s)</td>
@@ -101,12 +102,17 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
   </tr>
 </table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>
+A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors. Stark chiaroscuro lighting highlights her sharp features as she tilts her head, crimson lips parting in a knowing smile. Her smoldering gaze meets the viewer while she turns gracefully, lace casting shifting shadows on the walls. A medium shot with a subtle dolly zoom, framed by velvet drapes, adds depth. The mysterious, refined atmosphere blends modern elegance with vintage Hollywood glamour, rendered in 8K hyper-realistic detail, metallic gold accents glowing in the soft light.
+</details>
+
 
 - **Wan2.1 14B T2V 720P**
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
-</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
@@ -114,10 +120,14 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</td>
   </tr>
 </table>
-
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+  <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
 </div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
+The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
+</details>
+
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
@@ -125,11 +135,16 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</td>
   </tr>
 </table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A stylish woman walks down a Tokyo street filled with warm glowing neon....</summary>
+A stylish woman walks down a Tokyo street filled with warm glowing neon and animated city signage. She wears a black leather jacket, a long red dress, and black boots, and carries a black purse. She wears sunglasses and red lipstick. She walks confidently and casually. The street is damp and reflective, creating a mirror effect of the colorful lights. Many pedestrians walk about.
+</details>
 
 - **Wan2.1 1.3B T2V 480P**
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
-</div>
+
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>Wan2.1 1.3B T2V (189s)</td>
@@ -138,12 +153,32 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</td>
   </tr>
 </table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.</summary>
+Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.
+</details>
+
+<table style="width:100%; text-align:center; font-size:1em;">
+  <tr>
+    <td>OpenSora T2V (44.56s)</td>
+    <td>TeaCache (21.67s)<br>PSNR: 20.51, 2.1x speedup</td>
+    <td>MagCache (16.86s)<br>PSNR: 26.82, <b>2.6x</b> speedup</td>
+  </tr>
+</table>
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/fbb444db-320e-4108-9410-9e36cd6b0b0e" width="100%" poster=""> </video>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A tranquil tableau of an ornate Victorian streetlamp....</summary>
+A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone street corner, illuminating the empty night
+</details>
+
 
 - **FLUX-dev T2I**
 
-<div class="content has-text-centered">
-  <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
-</div>
 <table style="width:100%; text-align:center; font-size:1em;">
   <tr>
     <td>FLUX-dev (14.26s)</td>
@@ -151,6 +186,13 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (5.05s), <br> <b>2.8x</b> sppedup</td>
   </tr>
 </table>
+<div class="content has-text-centered">
+  <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: A photo of a black bicycle.</summary>
+Prompt: A photo of a black bicycle.
+</details>
 
 ## 🤖 Instructions for Supporting Other Models 
 - **Welcome for PRs to support other models.**
@@ -166,7 +208,7 @@ This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/V
 ## 🔒 License 
 
 * The core code of this project is released under the Apache 2.0 license as found in the [LICENSE](./LICENSE) file. The core code includes the calibration and forward code of MagCache.
-* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
+* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [TeaCache](https://github.com/ali-vilab/TeaCache), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
 
 ## 📖 Citation 
 If you find MagCache is useful in your research or applications, please consider giving us a star ⭐ and citing it by the following BibTeX entry.
