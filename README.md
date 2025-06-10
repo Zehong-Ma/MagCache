@@ -86,11 +86,11 @@ If you develop/use MagCache in your projects and you would like more people to s
     <td>MagCache (19min33s)<br>PSNR: 26.76, <b>2.8x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/Hunyuan_T2V_720P_header.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/a815048a-b25b-4c4a-8742-6c19ab572fbb" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/Hunyuan_T2V_720P_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
@@ -106,11 +106,11 @@ The video shows two astronauts in bulky suits walking slowly on the moon’s sur
     <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/Wan_14B_I2V_720P_header.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/Wan_14B_I2V_720P_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>
@@ -127,11 +127,11 @@ A woman in black lace stands confidently in a dim Art Deco interior with polishe
     <td>MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/Wan_14B_T2V_720P_header1.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/Wan_14B_T2V_720P_header1.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
@@ -145,11 +145,11 @@ The video shows two astronauts in bulky suits walking slowly on the moon’s sur
     <td>MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/Wan_14B_T2V_720P_header2.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/Wan_14B_T2V_720P_header2.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A stylish woman walks down a Tokyo street filled with warm glowing neon....</summary>
@@ -166,11 +166,11 @@ A stylish woman walks down a Tokyo street filled with warm glowing neon and anim
     <td>MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/Wan_1.3B_T2V_480P_header.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/Wan_1.3B_T2V_480P_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.</summary>
@@ -184,11 +184,11 @@ Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight in
     <td>MagCache (16.86s)<br>PSNR: 26.82, <b>2.6x</b> speedup</td>
   </tr>
 </table> -->
-<div class="content has-text-centered">
-  <img src="./assets/OpenSora_header.jpg" style="width: 100%"><br>
-</div>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/fbb444db-320e-4108-9410-9e36cd6b0b0e" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/OpenSora_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A tranquil tableau of an ornate Victorian streetlamp....</summary>
@@ -206,10 +206,10 @@ A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone s
   </tr>
 </table> -->
 <div class="content has-text-centered">
-  <img src="./assets/FLUX_header.jpg" style="width: 100%"><br>
+  <img src="./docs/static/images/flux_dev_bicycle.jpg" style="width: 100%"><br>
 </div>
 <div class="content has-text-centered">
-  <img src="./docs/static/images/flux_dev_bicycle.jpg" style="width: 100%"><br>
+  <img src="./assets/FLUX_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A photo of a black bicycle.</summary>

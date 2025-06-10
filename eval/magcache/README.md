@@ -44,21 +44,17 @@ python common_metrics/eval.py --gt_video_dir aa --generated_video_dir bb
 - **OpenSora**: 
   Set `magcache_thresh=0.12`, `magcache_K=3`, `retention_ratio=0.2` to achieve the latency 21.21s. Set `magcache_thresh=0.24`, `magcache_K=5`, `retention_ratio=0.2` to achieve the latency 16.86s. The `teacache_thresh` is set to 0.2 to achieve the latency 21.67s.
 
-<table style="width:100%; text-align:center; font-size:1em;">
-  <tr>
-    <td>OpenSora T2V (44.56s)</td>
-    <td>TeaCache (21.67s)<br>PSNR: 20.51, 2.1x speedup</td>
-    <td>MagCache (21.21s)<br>PSNR: 27.94, 2.1x speedup</td>
-    <td>MagCache (16.86s)<br>PSNR: 26.82, <b>2.6x</b> speedup</td>
-  </tr>
-</table>
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/75b9cb64-3dfa-4bac-85c3-93997f9a6236" width="100%" poster=""> </video>
+  <video src="https://github.com/user-attachments/assets/fbb444db-320e-4108-9410-9e36cd6b0b0e" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="../../assets/OpenSora_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A tranquil tableau of an ornate Victorian streetlamp....</summary>
 A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone street corner, illuminating the empty night
 </details>
+
 
 
 ## Citation

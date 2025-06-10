@@ -14,30 +14,22 @@
 |:--------------------------:|:----------------------------:|:---------------------:|
 |         ~60min04s          |           ~30min01s          |     ~21min40s         |
 
-<table style="width:100%; text-align:center; font-size:0.7em;">
-  <tr>
-    <td>Wan2.1 14B T2V (60min04s)</td>
-    <td>TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</td>
-    <td>MagCache (21min40s) <br> PSNR: 24.39, <b>2.8x</b> speedup</td>
-  </tr>
-</table>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/39dd52b8-3b45-4c87-b6fd-df979c0d062c" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="../assets/Wan_14B_T2V_720P_header1.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: The video shows two astronauts in bulky suits walking slowly on the moon’s surface....</summary>
 The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
 </details>
 
-<table style="width:100%; text-align:center; font-size:0.7em;">
-  <tr>
-    <td>Wan2.1 14B T2V (60min04s)</td>
-    <td>TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</td>
-    <td>MagCache (21min40s), <br> PSNR: 21.82, <b>2.8x</b> speedup</td>
-  </tr>
-</table>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/0d074cc7-7d94-4a86-b1a1-2160b3ef9dd1" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="../assets/Wan_14B_T2V_720P_header2.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A stylish woman walks down a Tokyo street filled with warm glowing neon....</summary>
@@ -51,16 +43,11 @@ A stylish woman walks down a Tokyo street filled with warm glowing neon and anim
 |         ~189 s             |        ~95 s                 |     ~87 s             |     ~68 s             |
 
 
-<table style="width:100%; text-align:center; font-size:0.7em;">
-  <tr>
-    <td>Wan2.1 1.3B T2V (189s)</td>
-    <td>TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</td>
-    <td>MagCache (87s) <br> PRNR: 20.51, 2.2x speedup</td>
-    <td>MagCache (68s) <br> PSNR: 18.93, <b>2.8x</b> speedup</td>
-  </tr>
-</table>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/5e0999a2-d959-4bbc-9c89-e06e303b7047" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="../assets/Wan_1.3B_T2V_480P_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.</summary>
@@ -73,15 +60,11 @@ Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight in
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~30min40s            |        ~13min04s           |     ~11min35s         |        ~10min03s      |
 
-<table style="width:100%; text-align:center; font-size:0.7em;">
-  <tr>
-    <td>Wan2.1 14B I2V (30min40s)</td>
-    <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
-    <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
-  </tr>
-</table>
 <div align="center">
   <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="../assets/Wan_14B_I2V_720P_header.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>

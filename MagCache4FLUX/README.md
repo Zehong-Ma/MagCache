@@ -15,6 +15,9 @@
 <div class="content has-text-centered">
   <img src="../docs/static/images/flux_dev_bicycle.jpg" style="width: 100%"><br>
 </div>
+<div class="content has-text-centered">
+  <img src="../assets/FLUX_header.jpg" style="width: 100%"><br>
+</div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A photo of a black bicycle.</summary>
 Prompt: A photo of a black bicycle.
