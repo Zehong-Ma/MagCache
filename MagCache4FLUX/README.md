@@ -13,7 +13,7 @@
 |         ~14.26 s           |        ~5.65 s <br> 2.5x sppedup           |     ~5.05 s  <br> <b>2.8x</b> sppedup          |
 
 <div class="content has-text-centered">
-  <img src="../docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+  <img src="../docs/static/images/flux_dev_bicycle.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A photo of a black bicycle.</summary>

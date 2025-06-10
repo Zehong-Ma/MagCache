@@ -1,32 +1,32 @@
 # MagCache: Fast Video Generation with Magnitude-Aware Cache
 
-<div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://zehong-ma.github.io/" target="_blank">Zehong Ma</a><sup>1,2</sup><sup>†</sup>,&nbsp;
-            </span>
-            <span class="author-block">
-              <a href="https://joinwei-pku.github.io/longhuiwei.github.io/" target="_blank">Longhui Wei</a><sup>2</sup><sup>‡</sup>,&nbsp;
-            </span>
-            <span class="author-block">
-              <a href="https://scholar.google.com/citations?user=bKG4Un8AAAAJ&hl=zh-CN" target="_blank">Feng Wang</a><sup>2</sup>,&nbsp;
-            </span>
-            <span class="author-block">
-              <a href="https://www.pkuvmc.com/" target="_blank">Shiliang Zhang</a><sup>1</sup><sup>*</sup>,&nbsp;
-            </span>
-            <span class="author-block">
-              <a href="https://www.qitian1987.com/" target="_blank">Qi Tian</a><sup>2</sup><sup>*</sup>
-            </span>
-          </div>
+<div class="is-size-5 publication-authors", align="center",>
+  <span class="author-block">
+    <a href="https://zehong-ma.github.io/" target="_blank">Zehong Ma</a><sup>1,2</sup><sup>†</sup>,&nbsp;
+  </span>
+  <span class="author-block">
+    <a href="https://joinwei-pku.github.io/longhuiwei.github.io/" target="_blank">Longhui Wei</a><sup>2</sup><sup>‡</sup>,&nbsp;
+  </span>
+  <span class="author-block">
+    <a href="https://scholar.google.com/citations?user=bKG4Un8AAAAJ&hl=zh-CN" target="_blank">Feng Wang</a><sup>2</sup>,&nbsp;
+  </span>
+  <span class="author-block">
+    <a href="https://www.pkuvmc.com/" target="_blank">Shiliang Zhang</a><sup>1</sup><sup>*</sup>,&nbsp;
+  </span>
+  <span class="author-block">
+    <a href="https://www.qitian1987.com/" target="_blank">Qi Tian</a><sup>2</sup><sup>*</sup>
+  </span>
+</div>
 
-  <div class="is-size-5 publication-authors">
-    <span class="author-block"><sup>1</sup>Peking University,&nbsp;</span>
-    <span class="author-block"><sup>2</sup>Huawei Inc.</span>
-  </div>
+<div class="is-size-5 publication-authors", align="center",>
+  <span class="author-block"><sup>1</sup>Peking University,&nbsp;</span>
+  <span class="author-block"><sup>2</sup>Huawei Inc.</span>
+</div>
 
 
-  <div class="is-size-5 publication-authors">
-    († Work was done during internship at Huawei Inc., ‡ Project Leader. * Corresponding author.)
-  </div>
+<div class="is-size-5 publication-authors", align="center",>
+  († Work was done during internship at Huawei Inc., ‡ Project Leader. * Corresponding author.)
+</div>
 
 <h5 align="center">
 
@@ -41,7 +41,7 @@
 
 <!-- ![visualization](./docs/static/images/intro_demo_image.png) -->
 <div class="content has-text-centered">
-          <img src="./docs/static/images/intro_demo_image.png" style="width: 100%;"><br>
+          <img src="./docs/static/images/intro_demo_image.jpg" style="width: 100%;"><br>
           <span style="font-size: 0.8em; width: 100%; display: inline-block;">Figure 1: Visualization of MagCache on Open-Sora and Wan2.1. MagCache can achieve better visual quality with a comparable or less latency. More demos are shown in the subfolders of each model.</span>
         </div>
 
@@ -78,7 +78,7 @@ If you develop/use MagCache in your projects and you would like more people to s
 
  **Demos**
 - **HunyuanVideo T2V 720P**
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>HunyuanVideo T2V (54min05s)</td>
     <td>TeaCache (23min49s)<br>PSNR: 22.80, 2.3x speedup</td>
@@ -95,7 +95,7 @@ The video shows two astronauts in bulky suits walking slowly on the moon’s sur
 
 - **Wan2.1 14B I2V 720P**
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B I2V (30min40s)</td>
     <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
@@ -113,7 +113,7 @@ A woman in black lace stands confidently in a dim Art Deco interior with polishe
 
 - **Wan2.1 14B T2V 720P**
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
     <td>TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</td>
@@ -128,7 +128,7 @@ A woman in black lace stands confidently in a dim Art Deco interior with polishe
 The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
 </details>
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
     <td>TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</td>
@@ -145,7 +145,7 @@ A stylish woman walks down a Tokyo street filled with warm glowing neon and anim
 
 - **Wan2.1 1.3B T2V 480P**
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 1.3B T2V (189s)</td>
     <td>TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</td>
@@ -161,7 +161,7 @@ A stylish woman walks down a Tokyo street filled with warm glowing neon and anim
 Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.
 </details>
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>OpenSora T2V (44.56s)</td>
     <td>TeaCache (21.67s)<br>PSNR: 20.51, 2.1x speedup</td>
@@ -179,7 +179,7 @@ A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone s
 
 - **FLUX-dev T2I**
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>FLUX-dev (14.26s)</td>
     <td>TeaCache (5.65s), <br> 2.5x sppedup</td>
@@ -187,7 +187,7 @@ A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone s
   </tr>
 </table>
 <div class="content has-text-centered">
-  <img src="./docs/static/images/flux_dev_bicycle.png" style="width: 100%"><br>
+  <img src="./docs/static/images/flux_dev_bicycle.jpg" style="width: 100%"><br>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: A photo of a black bicycle.</summary>

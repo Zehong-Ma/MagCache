@@ -14,7 +14,7 @@
 |:--------------------------:|:----------------------------:|:---------------------:|
 |         ~60min04s          |           ~30min01s          |     ~21min40s         |
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
     <td>TeaCache (30min01s) <br> PSNR: 17.39, 2.0x speedup</td>
@@ -29,7 +29,7 @@
 The video shows two astronauts in bulky suits walking slowly on the moon’s surface, against a vast starry universe. Their steps are heavy and slow, kicking up dust in the low-gravity environment. The scene is silent, mysterious, and evokes the courage and dreams of space exploration.
 </details>
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B T2V (60min04s)</td>
     <td>TeaCache (30min01s), <br> PSNR: 14.32, 2.0x speedup</td>
@@ -51,7 +51,7 @@ A stylish woman walks down a Tokyo street filled with warm glowing neon and anim
 |         ~189 s             |        ~95 s                 |     ~87 s             |     ~68 s             |
 
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 1.3B T2V (189s)</td>
     <td>TeaCache (95s) <br> PSNR: 14.86, 2.0x speedup</td>
@@ -73,7 +73,7 @@ Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight in
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~30min40s            |        ~13min04s           |     ~11min35s         |        ~10min03s      |
 
-<table style="width:100%; text-align:center; font-size:1em;">
+<table style="width:100%; text-align:center; font-size:0.7em;">
   <tr>
     <td>Wan2.1 14B I2V (30min40s)</td>
     <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
@@ -93,21 +93,6 @@ A woman in black lace stands confidently in a dim Art Deco interior with polishe
 |      Wan2.1 i2v 480P ours     |    TeaCache (0.26)  |    MagCache (E012K4R02)    |    MagCache (E024K6R02)    |
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~13min20s             |        ~5min22s     |     4min43s                 |     ~4min23s          |
-
-<table style="width:100%; text-align:center; font-size:1em;">
-  <tr>
-    <td>Wan2.1 14B I2V (30min40s)</td>
-    <td>TeaCache (13min04s)<br>PSNR: 13.67, 2.3x speedup</td>
-    <td>MagCache (10min03s)<br>PSNR: 23.67, <b>3.0x</b> speedup</td>
-  </tr>
-</table>
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/98c03bad-59ac-4d7f-bd43-7792c60ac957" width="100%" poster=""> </video>
-</div>
-<details style="width: 100%; margin: auto;">
-<summary>Prompt: A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors....</summary>
-A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors. Stark chiaroscuro lighting highlights her sharp features as she tilts her head, crimson lips parting in a knowing smile. Her smoldering gaze meets the viewer while she turns gracefully, lace casting shifting shadows on the walls. A medium shot with a subtle dolly zoom, framed by velvet drapes, adds depth. The mysterious, refined atmosphere blends modern elegance with vintage Hollywood glamour, rendered in 8K hyper-realistic detail, metallic gold accents glowing in the soft light.
-</details>
 
 ## Usage
 
