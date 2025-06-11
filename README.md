@@ -74,7 +74,7 @@ If you develop/use MagCache in your projects and you would like more people to s
 
  **Text to Image**
 - [MagCache4FLUX](./MagCache4FLUX/README.md)
-- [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md)
+<!-- - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md) -->
 
  **Demos**
 - **HunyuanVideo T2V 720P**
