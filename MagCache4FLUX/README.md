@@ -40,14 +40,17 @@ python magcache_flux.py
 ## Citation
 If you find MagCache is useful in your research or applications, please consider giving us a star 🌟 and citing it by the following BibTeX entry.
 
-<!-- ```
-@article{liu2024timestep,
-  title={Timestep Embedding Tells: It's Time to Cache for Video Diffusion Model},
-  author={Liu, Feng and Zhang, Shiwei and Wang, Xiaofeng and Wei, Yujie and Qiu, Haonan and Zhao, Yuzhong and Zhang, Yingya and Ye, Qixiang and Wan, Fang},
-  journal={arXiv preprint arXiv:2411.19108},
-  year={2024}
+```
+@misc{ma2025magcachefastvideogeneration,
+      title={MagCache: Fast Video Generation with Magnitude-Aware Cache}, 
+      author={Zehong Ma and Longhui Wei and Feng Wang and Shiliang Zhang and Qi Tian},
+      year={2025},
+      eprint={2506.09045},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2506.09045}, 
 }
-``` -->
+```
 
 ## Acknowledgements
 

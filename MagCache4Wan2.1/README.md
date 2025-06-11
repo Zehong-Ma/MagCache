@@ -123,6 +123,22 @@ A woman in black lace stands confidently in a dim Art Deco interior with polishe
 |:--------------------------:|:----------------------------:|:---------------------:|:---------------------:|
 |         ~13min20s             |        ~5min22s     |     4min43s                 |     ~4min23s          |
 
+
+## Citation
+If you find MagCache is useful in your research or applications, please consider giving us a star 🌟 and citing it by the following BibTeX entry.
+
+```
+@misc{ma2025magcachefastvideogeneration,
+      title={MagCache: Fast Video Generation with Magnitude-Aware Cache}, 
+      author={Zehong Ma and Longhui Wei and Feng Wang and Shiliang Zhang and Qi Tian},
+      year={2025},
+      eprint={2506.09045},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2506.09045}, 
+}
+```
+
 ## Acknowledgements
 
 We would like to thank the contributors to the [Wan2.1](https://github.com/Wan-Video/Wan2.1) and [TeaCache](https://github.com/ali-vilab/TeaCache).

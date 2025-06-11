@@ -31,7 +31,7 @@
 <h5 align="center">
 
 <!-- [![hf_paper](https://img.shields.io/badge/🤗-Paper%20In%20HF-red.svg)](---) -->
-<!-- [![arXiv](https://img.shields.io/badge/Arxiv-2411.19108-b31b1b.svg?logo=arXiv)](---)  -->
+[![arXiv](https://img.shields.io/badge/Arxiv-2506.09045-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2506.09045) 
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://zehong-ma.github.io/MagCache/) 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](./LICENSE) 
 [![github](https://img.shields.io/github/stars/Zehong-Ma/MagCache.svg?style=social)](https://github.com/Zehong-Ma/MagCache/)
@@ -58,7 +58,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 - [2025/6/10] 🔥 Support [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Open-Sora](https://github.com/hpcaitech/Open-Sora).
 - [2025/6/10] 🎉 Release the [code](https://github.com/Zehong-Ma/MagCache) of MagCache.
-- [2025/6/10] 🎉 Release the [paper](--) of MagCache.
+- [2025/6/10] 🎉 Release the [paper](https://arxiv.org/abs/2506.09045) of MagCache.
 
 ## 🧩 Community Contributions  
 If you develop/use MagCache in your projects and you would like more people to see it, please inform us.(zehongma@stu.pku.edu.cn)
@@ -235,13 +235,16 @@ This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/V
 ## 📖 Citation 
 If you find MagCache is useful in your research or applications, please consider giving us a star ⭐ and citing it by the following BibTeX entry.
 
-<!-- ```
-@article{liu2024timestep,
-  title={Timestep Embedding Tells: It's Time to Cache for Video Diffusion Model},
-  author={Liu, Feng and Zhang, Shiwei and Wang, Xiaofeng and Wei, Yujie and Qiu, Haonan and Zhao, Yuzhong and Zhang, Yingya and Ye, Qixiang and Wan, Fang},
-  journal={arXiv preprint arXiv:2411.19108},
-  year={2024}
+```
+@misc{ma2025magcachefastvideogeneration,
+      title={MagCache: Fast Video Generation with Magnitude-Aware Cache}, 
+      author={Zehong Ma and Longhui Wei and Feng Wang and Shiliang Zhang and Qi Tian},
+      year={2025},
+      eprint={2506.09045},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2506.09045}, 
 }
-``` -->
+```
 
 
