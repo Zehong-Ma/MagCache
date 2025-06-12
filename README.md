@@ -55,14 +55,18 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
-
+- [2025/6/10] 🔥 Support [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please have a try!
 - [2025/6/10] 🔥 Support [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Open-Sora](https://github.com/hpcaitech/Open-Sora).
 - [2025/6/10] 🎉 Release the [code](https://github.com/Zehong-Ma/MagCache) of MagCache.
 - [2025/6/10] 🎉 Release the [paper](https://arxiv.org/abs/2506.09045) of MagCache.
 
 ## 🧩 Community Contributions  
 If you develop/use MagCache in your projects and you would like more people to see it, please inform us.(zehongma@stu.pku.edu.cn)
-  
+
+**ComfyUI**
+- [ComfyUI-MagCache](https://github.com/wildminder/ComfyUI-MagCache) (Community) for MagCache. Support Flux now. Thanks [@wildminder](https://github.com/wildminder). Our official [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache) now support Wan2.1, HunyuanVideo, Flux.
+
+
 ## 🎉 Supported Models 
 **Text to Video**
 - [MagCache4Wan2.1](./MagCache4Wan2.1/README.md)
