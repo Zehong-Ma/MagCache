@@ -635,7 +635,7 @@ def magcache_forward(
     skip_forward = False
     ori_x = x
     if self.cnt>=int(self.num_steps*self.retention_ratio):
-        cur_mag_ratio = self.mag_ratios[self.cnt-int(self.num_steps*self.retention_ratio)] # conditional and unconditional in one list
+        cur_mag_ratio = self.mag_ratios[self.cnt] # conditional and unconditional in one list
         self.accumulated_ratio[self.cnt%2] = self.accumulated_ratio[self.cnt%2]*cur_mag_ratio # magnitude ratio between current step and the cached step
         self.accumulated_steps[self.cnt%2] += 1 # skip steps plus 1
         cur_skip_err = np.abs(1-self.accumulated_ratio[self.cnt%2]) # skip error of current steps

@@ -79,7 +79,7 @@ def magcache_forward(
         skip_forward = False
         
         if self.cnt>=int(self.retention_ratio*self.num_steps):
-            cur_mag_ratio = self.mag_ratios[self.cnt-1]
+            cur_mag_ratio = self.mag_ratios[self.cnt]
             self.accumulated_ratio = self.accumulated_ratio*cur_mag_ratio
             cur_skip_err = np.abs(1-self.accumulated_ratio)
             self.accumulated_err += cur_skip_err
