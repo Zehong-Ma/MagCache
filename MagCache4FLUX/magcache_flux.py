@@ -436,14 +436,13 @@ def magcache_forward(
         return Transformer2DModelOutput(sample=output)
 
 FluxTransformer2DModel.forward = magcache_forward # replace with magcache_calibration
-num_inference_steps = 28
+num_inference_steps = 28 # For a different number of inference steps, you may need to calibrate the magnitude ratio first to achieve best performance. 
 seed = 42
 
-pipeline = DiffusionPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
+pipeline = DiffusionPipeline.from_pretrained("/nfs/mzh/VideoGeneration/pretrained_weights/black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
 # pipeline.enable_model_cpu_offload() #save some VRAM by offloading the model to CPU. Remove this if you have enough GPU power
 
-# TeaCache
-pipeline.transformer.__class__.enable_teacache = True
+# MagCache
 pipeline.transformer.__class__.cnt = 0
 pipeline.transformer.__class__.num_steps = num_inference_steps
 pipeline.transformer.__class__.norm_ratio = []
@@ -458,7 +457,6 @@ pipeline.transformer.__class__.retention_ratio = 0.1
 pipeline.transformer.__class__.accumulated_ratio = 1
 pipeline.transformer.__class__.accumulated_err = 0
 pipeline.transformer.__class__.accumulated_steps = 0
-# prompt = "A stylish woman walks down a Tokyo street filled with warm glowing neon and animated city signage. She wears a black leather jacket, a long red dress, and black boots, and carries a black purse. She wears sunglasses and red lipstick. She walks confidently and casually. The street is damp and reflective, creating a mirror effect of the colorful lights. Many pedestrians walk about."
 
 prompts = [
     "A stylish woman walks down a Tokyo street filled with warm glowing neon and animated city signage. She wears a black leather jacket, a long red dress, and black boots, and carries a black purse. She wears sunglasses and red lipstick. She walks confidently and casually. The street is damp and reflective, creating a mirror effect of the colorful lights. Many pedestrians walk about.",
@@ -471,5 +469,5 @@ for prompt in prompts:
         num_inference_steps=num_inference_steps,
         generator=torch.Generator("cpu").manual_seed(seed)
         ).images[0]
-    img.save("{}.png".format('TeaCache_' + prompt[:100].replace(".", "")))
+    img.save("{}.png".format('MagCache_' + prompt[:100].replace(".", "")))
     

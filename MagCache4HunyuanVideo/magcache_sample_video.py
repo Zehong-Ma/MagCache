@@ -79,7 +79,7 @@ def magcache_forward(
         skip_forward = False
         
         if self.cnt>=int(self.retention_ratio*self.num_steps):
-            cur_mag_ratio = self.mag_ratios[self.cnt-1]
+            cur_mag_ratio = self.mag_ratios[self.cnt]
             self.accumulated_ratio = self.accumulated_ratio*cur_mag_ratio
             cur_skip_err = np.abs(1-self.accumulated_ratio)
             self.accumulated_err += cur_skip_err
@@ -295,7 +295,6 @@ def main():
     args.magcache_K = 6 # 4
     args.retention_ratio = 0.2
     
-    hunyuan_video_sampler.pipeline.transformer.__class__.enable_teacache = True
     hunyuan_video_sampler.pipeline.transformer.__class__.cnt = 0
     hunyuan_video_sampler.pipeline.transformer.__class__.num_steps = args.infer_steps
     hunyuan_video_sampler.pipeline.transformer.__class__.magcache_thresh = args.magcache_thresh

@@ -43,11 +43,14 @@ python magcache_generate.py --task i2v-14B \
     --size 1280*720 \
     --ckpt_dir ./Wan2.1-I2V-14B-720P \
     --image examples/wan_i2v.png \
-    --magcache_calibration \
+    --use_magcache \
+    --magcache_K 6 \
+    --retention_ratio 0.2 \
+    --magcache_thresh 0.24 \
     --offload_model True \
+    --base_seed 0 \
     --t5_cpu \
     --frame_num 61 \
-    --base_seed 0 \
     --prompt "A woman in black lace stands confidently in a dim Art Deco interior with polished marble floors. Stark chiaroscuro lighting highlights her sharp features as she tilts her head, crimson lips parting in a knowing smile. Her smoldering gaze meets the viewer while she turns gracefully, lace casting shifting shadows on the walls. A medium shot with a subtle dolly zoom, framed by velvet drapes, adds depth. The mysterious, refined atmosphere blends modern elegance with vintage Hollywood glamour, rendered in 8K hyper-realistic detail, metallic gold accents glowing in the soft light."
 ```
 
