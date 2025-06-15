@@ -17,6 +17,15 @@ import numpy as np
 import torch.nn.functional as F
 import argparse
 
+def nearest_interp(src_array, target_length):
+    src_length = len(src_array)
+    if target_length == 1:
+        return np.array([src_array[-1]])
+
+    scale = (src_length - 1) / (target_length - 1)
+    mapped_indices = np.round(np.arange(target_length) * scale).astype(int)
+    return src_array[mapped_indices]
+
 def magcache_forward(
         self,
         x: torch.Tensor,
@@ -307,6 +316,11 @@ def main():
         hunyuan_video_sampler.pipeline.transformer.__class__.mag_ratios = np.array([1.0]+[1.0754, 1.27807, 1.11596, 1.09504, 1.05188, 1.00844, 1.05779, 1.00657, 1.04142, 1.03101, 1.00679, 1.02556, 1.00908, 1.06949, 1.05438, 1.02214, 1.02321, 1.03019, 1.00779, 1.03381, 1.01886, 1.01161, 1.02968, 1.00544, 1.02822, 1.00689, 1.02119, 1.0105, 1.01044, 1.01572, 1.02972, 1.0094, 1.02368, 1.0226, 0.98965, 1.01588, 1.02146, 1.0018, 1.01687, 0.99436, 1.00283, 1.01139, 0.97122, 0.98251, 0.94513, 0.97656, 0.90943, 0.85703, 0.75456])
     if args.video_size[0]==544:
         hunyuan_video_sampler.pipeline.transformer.__class__.mag_ratios = np.array([1.0]+[1.06971, 1.29073, 1.11245, 1.09596, 1.05233, 1.01415, 1.05672, 1.00848, 1.03632, 1.02974, 1.00984, 1.03028, 1.00681, 1.06614, 1.05022, 1.02592, 1.01776, 1.02985, 1.00726, 1.03727, 1.01502, 1.00992, 1.03371, 0.9976, 1.02742, 1.0093, 1.01869, 1.00815, 1.01461, 1.01152, 1.03082, 1.0061, 1.02162, 1.01999, 0.99063, 1.01186, 1.0217, 0.99947, 1.01711, 0.9904, 1.00258, 1.00878, 0.97039, 0.97686, 0.94315, 0.97728, 0.91154, 0.86139, 0.76592])
+    # Nearest interpolation when the num_steps is different from the length of mag_ratios
+    if len(hunyuan_video_sampler.pipeline.transformer.__class__.mag_ratios) != args.infer_steps:
+        interpolated_mag_ratios = nearest_interp(hunyuan_video_sampler.pipeline.transformer.__class__.mag_ratios, args.infer_steps)
+        hunyuan_video_sampler.pipeline.transformer.__class__.mag_ratios = interpolated_mag_ratios
+        
     hunyuan_video_sampler.pipeline.transformer.__class__.retention_ratio = args.retention_ratio
     hunyuan_video_sampler.pipeline.transformer.__class__.forward = magcache_forward # change to `magcache_calibration` when calibrating with your custom prompt and model_type 
     hunyuan_video_sampler.pipeline.transformer.__class__.accumulated_ratio = 1

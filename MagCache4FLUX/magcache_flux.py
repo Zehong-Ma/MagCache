@@ -9,6 +9,14 @@ import torch.nn.functional as F
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
+def nearest_interp(src_array, target_length):
+    src_length = len(src_array)
+    if target_length == 1:
+        return np.array([src_array[-1]])
+
+    scale = (src_length - 1) / (target_length - 1)
+    mapped_indices = np.round(np.arange(target_length) * scale).astype(int)
+    return src_array[mapped_indices]
 
 def magcache_calibration(
         self,
@@ -321,7 +329,7 @@ def magcache_forward(
             self.accumulated_ratio = self.accumulated_ratio*cur_scale
             self.accumulated_steps += 1
             self.accumulated_err += np.abs(1-self.accumulated_ratio)
-            if self.accumulated_err<=self.magcache_thresh and self.accumulated_steps<=self.K and self.cnt!=11:
+            if self.accumulated_err<=self.magcache_thresh and self.accumulated_steps<=self.K and np.round(self.cnt*((28-1)/(self.num_steps-1))).astype(int)!=11:
                 cur_residual = self.previous_residual
                 skip_forward = True
             else:
@@ -449,7 +457,12 @@ pipeline.transformer.__class__.norm_ratio = []
 pipeline.transformer.__class__.norm_std = []
 pipeline.transformer.__class__.cos_dis = []
 pipeline.transformer.__class__.mag_ratios = np.array([1.0]+[1.21094, 1.11719, 1.07812, 1.0625, 1.03906, 1.03125, 1.03906, 1.02344, 1.03125, 1.02344, 0.98047, 1.01562, 1.00781, 1.0, 1.00781, 1.0, 1.00781, 1.0, 1.0, 0.99609, 0.99609, 0.98047, 0.98828, 0.96484, 0.95703, 0.93359, 0.89062])
-
+# Nearest interpolation when the num_steps is different from the length of mag_ratios
+if len(pipeline.transformer.__class__.mag_ratios) != num_inference_steps:
+    interpolated_mag_ratios = nearest_interp(pipeline.transformer.__class__.mag_ratios, num_inference_steps)
+    pipeline.transformer.__class__.mag_ratios = interpolated_mag_ratios
+        
+        
 # hyprameters: please modify the hyper-parameters to get a trade-off between latency and quality in your own task.
 pipeline.transformer.__class__.K = 5
 pipeline.transformer.__class__.magcache_thresh = 0.24 
