@@ -1088,11 +1088,11 @@ def generate(args):
             if '720P' in args.ckpt_dir:
                 wan_i2v.model.__class__.mag_ratios = np.array([1.0]*2+[0.99428, 0.99498, 0.98588, 0.98621, 0.98273, 0.98281, 0.99018, 0.99023, 0.98911, 0.98917, 0.98646, 0.98652, 0.99454, 0.99456, 0.9891, 0.98909, 0.99124, 0.99127, 0.99102, 0.99103, 0.99215, 0.99212, 0.99515, 0.99515, 0.99576, 0.99572, 0.99068, 0.99072, 0.99097, 0.99097, 0.99166, 0.99169, 0.99041, 0.99042, 0.99201, 0.99198, 0.99101, 0.99101, 0.98599, 0.98603, 0.98845, 0.98844, 0.98848, 0.98851, 0.98862, 0.98857, 0.98718, 0.98719, 0.98497, 0.98497, 0.98264, 0.98263, 0.98389, 0.98393, 0.97938, 0.9794, 0.97535, 0.97536, 0.97498, 0.97499, 0.973, 0.97301, 0.96827, 0.96828, 0.96261, 0.96263, 0.95335, 0.9534, 0.94649, 0.94655, 0.93397, 0.93414, 0.91636, 0.9165, 0.89088, 0.89109, 0.8679, 0.86768])
             # Nearest interpolation when the num_steps is different from the length of mag_ratios
-            if len(wan_t2v.model.__class__.mag_ratios) != args.sample_steps*2:
-                mag_ratio_con = nearest_interp(wan_t2v.model.__class__.mag_ratios[0::2], args.sample_steps)
-                mag_ratio_ucon = nearest_interp(wan_t2v.model.__class__.mag_ratios[1::2], args.sample_steps)
+            if len(wan_i2v.model.__class__.mag_ratios) != args.sample_steps*2:
+                mag_ratio_con = nearest_interp(wan_i2v.model.__class__.mag_ratios[0::2], args.sample_steps)
+                mag_ratio_ucon = nearest_interp(wan_i2v.model.__class__.mag_ratios[1::2], args.sample_steps)
                 interpolated_mag_ratios = np.concatenate([mag_ratio_con.reshape(-1, 1), mag_ratio_ucon.reshape(-1, 1)], axis=1).reshape(-1)
-                wan_t2v.model.__class__.mag_ratios = interpolated_mag_ratios
+                wan_i2v.model.__class__.mag_ratios = interpolated_mag_ratios
         if args.magcache_calibration:
             wan_i2v.__class__.generate = i2v_generate
             wan_i2v.model.__class__.forward = magcache_calibration
