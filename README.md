@@ -56,6 +56,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
 - [2025/6/17] 🔥 Support [VACE 1.3B](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) officially.
+- [2025/6/17] 🔥 MagCache is supported by [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper). Thanks @[kijai](https://github.com/kijai).
 - [2025/6/16] 🔥 Support [Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please try it in [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache).
 - [2025/6/12] 🔥 Support [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please have a try!
 - [2025/6/10] 🔥 Support [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Open-Sora](https://github.com/hpcaitech/Open-Sora).
@@ -66,6 +67,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 If you develop/use MagCache in your projects and you would like more people to see it, please inform us.(zehongma@stu.pku.edu.cn)
 
 **ComfyUI**
+- [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper)
 - [ComfyUI-MagCache](https://github.com/wildminder/ComfyUI-MagCache) (Community) for MagCache. Support Flux now. Thanks [@wildminder](https://github.com/wildminder). Our official [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache) now support Wan2.1, HunyuanVideo, Flux.
 
 
@@ -75,15 +77,18 @@ If you develop/use MagCache in your projects and you would like more people to s
 - [MagCache4HunyuanVideo](./MagCache4HunyuanVideo/README.md)
 - [MagCache4Open-Sora](./eval/MagCache/README.md)
 
- **Image to Video** 
+**Image to Video** 
 - [MagCache4Wan2.1](./MagCache4Wan2.1/README.md)
 
- **Text to Image**
+**Video Editing**
+- [MagCache4VACE](./MagCache4Wan2.1/README.md)
+
+**Text to Image**
 - [MagCache4FLUX](./MagCache4FLUX/README.md)
 - [MagCache4Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache)
 <!-- - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md) -->
 
- **Demos**
+**Demos**
 - **HunyuanVideo T2V 720P**
 
 <!-- <table style="width:100%; margin: auto; text-align:center; font-size:0.7em;">
