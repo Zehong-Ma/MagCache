@@ -1,53 +1,28 @@
 # Copyright 2024-2025 The Alibaba Wan Team Authors. All rights reserved.
 import argparse
-from datetime import datetime
 import logging
 import os
 import sys
 import warnings
+from datetime import datetime
 
 warnings.filterwarnings('ignore')
 
-import torch, random
+import random
+
+import torch
 import torch.distributed as dist
 from PIL import Image
 
 import wan
-from wan.configs import WAN_CONFIGS, SIZE_CONFIGS, MAX_AREA_CONFIGS, SUPPORTED_SIZES
+from wan.configs import MAX_AREA_CONFIGS, SIZE_CONFIGS, SUPPORTED_SIZES, WAN_CONFIGS
 from wan.utils.prompt_extend import DashScopePromptExpander, QwenPromptExpander
-from wan.utils.utils import cache_video, cache_image, str2bool
-
-import gc
-from contextlib import contextmanager
-import torchvision.transforms.functional as TF
+from wan.utils.utils import cache_image, cache_video, str2bool
 import torch.cuda.amp as amp
-import numpy as np
-import math
 from wan.modules.model import sinusoidal_embedding_1d
-from wan.utils.fm_solvers import (FlowDPMSolverMultistepScheduler,
-                               get_sampling_sigmas, retrieve_timesteps)
-from wan.utils.fm_solvers_unipc import FlowUniPCMultistepScheduler
-from tqdm import tqdm
 import torch.nn.functional as F
 import json
-
-EXAMPLE_PROMPT = {
-    "t2v-1.3B": {
-        "prompt": "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.",
-    },
-    "t2v-14B": {
-        "prompt": "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.",
-    },
-    "t2i-14B": {
-        "prompt": "一个朴素端庄的美人",
-    },
-    "i2v-14B": {
-        "prompt":
-            "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside.",
-        "image":
-            "examples/i2v_input.JPG",
-    },
-}
+import numpy as np
 
 def nearest_interp(src_array, target_length):
     src_length = len(src_array)
@@ -62,389 +37,45 @@ def save_json(filename, obj_list):
     with open(filename+".json", "w") as f:
         json.dump(obj_list, f)
 
-def t2v_generate(self,
-                 input_prompt,
-                 size=(1280, 720),
-                 frame_num=81,
-                 shift=5.0,
-                 sample_solver='unipc',
-                 sampling_steps=50,
-                 guide_scale=5.0,
-                 n_prompt="",
-                 seed=-1,
-                 offload_model=True):
-        r"""
-        Generates video frames from text prompt using diffusion process.
-
-        Args:
-            input_prompt (`str`):
-                Text prompt for content generation
-            size (tupele[`int`], *optional*, defaults to (1280,720)):
-                Controls video resolution, (width,height).
-            frame_num (`int`, *optional*, defaults to 81):
-                How many frames to sample from a video. The number should be 4n+1
-            shift (`float`, *optional*, defaults to 5.0):
-                Noise schedule shift parameter. Affects temporal dynamics
-            sample_solver (`str`, *optional*, defaults to 'unipc'):
-                Solver used to sample the video.
-            sampling_steps (`int`, *optional*, defaults to 40):
-                Number of diffusion sampling steps. Higher values improve quality but slow generation
-            guide_scale (`float`, *optional*, defaults 5.0):
-                Classifier-free guidance scale. Controls prompt adherence vs. creativity
-            n_prompt (`str`, *optional*, defaults to ""):
-                Negative prompt for content exclusion. If not given, use `config.sample_neg_prompt`
-            seed (`int`, *optional*, defaults to -1):
-                Random seed for noise generation. If -1, use random seed.
-            offload_model (`bool`, *optional*, defaults to True):
-                If True, offloads models to CPU during generation to save VRAM
-
-        Returns:
-            torch.Tensor:
-                Generated video frames tensor. Dimensions: (C, N H, W) where:
-                - C: Color channels (3 for RGB)
-                - N: Number of frames (81)
-                - H: Frame height (from size)
-                - W: Frame width from size)
-        """
-        # preprocess
-        F = frame_num
-        target_shape = (self.vae.model.z_dim, (F - 1) // self.vae_stride[0] + 1,
-                        size[1] // self.vae_stride[1],
-                        size[0] // self.vae_stride[2])
-
-        seq_len = math.ceil((target_shape[2] * target_shape[3]) /
-                            (self.patch_size[1] * self.patch_size[2]) *
-                            target_shape[1] / self.sp_size) * self.sp_size
-
-        if n_prompt == "":
-            n_prompt = self.sample_neg_prompt
-        seed = seed if seed >= 0 else random.randint(0, sys.maxsize)
-        seed_g = torch.Generator(device=self.device)
-        seed_g.manual_seed(seed)
-
-        if not self.t5_cpu:
-            self.text_encoder.model.to(self.device)
-            context = self.text_encoder([input_prompt], self.device)
-            context_null = self.text_encoder([n_prompt], self.device)
-            if offload_model:
-                self.text_encoder.model.cpu()
-        else:
-            context = self.text_encoder([input_prompt], torch.device('cpu'))
-            context_null = self.text_encoder([n_prompt], torch.device('cpu'))
-            context = [t.to(self.device) for t in context]
-            context_null = [t.to(self.device) for t in context_null]
-
-        noise = [
-            torch.randn(
-                target_shape[0],
-                target_shape[1],
-                target_shape[2],
-                target_shape[3],
-                dtype=torch.float32,
-                device=self.device,
-                generator=seed_g)
-        ]
-
-        @contextmanager
-        def noop_no_sync():
-            yield
-
-        no_sync = getattr(self.model, 'no_sync', noop_no_sync)
-
-        # evaluation mode
-        with amp.autocast(dtype=self.param_dtype), torch.no_grad(), no_sync():
-
-            if sample_solver == 'unipc':
-                sample_scheduler = FlowUniPCMultistepScheduler(
-                    num_train_timesteps=self.num_train_timesteps,
-                    shift=1,
-                    use_dynamic_shifting=False)
-                sample_scheduler.set_timesteps(
-                    sampling_steps, device=self.device, shift=shift)
-                timesteps = sample_scheduler.timesteps
-            elif sample_solver == 'dpm++':
-                sample_scheduler = FlowDPMSolverMultistepScheduler(
-                    num_train_timesteps=self.num_train_timesteps,
-                    shift=1,
-                    use_dynamic_shifting=False)
-                sampling_sigmas = get_sampling_sigmas(sampling_steps, shift)
-                timesteps, _ = retrieve_timesteps(
-                    sample_scheduler,
-                    device=self.device,
-                    sigmas=sampling_sigmas)
-            else:
-                raise NotImplementedError("Unsupported solver.")
-
-            # sample videos
-            latents = noise
-
-            arg_c = {'context': context, 'seq_len': seq_len}
-            arg_null = {'context': context_null, 'seq_len': seq_len}
-
-            for _, t in enumerate(tqdm(timesteps)):
-                latent_model_input = latents
-                timestep = [t]
-
-                timestep = torch.stack(timestep)
-
-                self.model.to(self.device)
-                noise_pred_cond = self.model(
-                    latent_model_input, t=timestep, **arg_c)[0]
-                noise_pred_uncond = self.model(
-                    latent_model_input, t=timestep, **arg_null)[0]
-
-                noise_pred = noise_pred_uncond + guide_scale * (
-                    noise_pred_cond - noise_pred_uncond)
-
-                temp_x0 = sample_scheduler.step(
-                    noise_pred.unsqueeze(0),
-                    t,
-                    latents[0].unsqueeze(0),
-                    return_dict=False,
-                    generator=seed_g)[0]
-                latents = [temp_x0.squeeze(0)]
-
-            x0 = latents
-            if offload_model:
-                self.model.cpu()
-                torch.cuda.empty_cache()
-            if self.rank == 0:
-                videos = self.vae.decode(x0)
-
-        del noise, latents
-        del sample_scheduler
-        if offload_model:
-            gc.collect()
-            torch.cuda.synchronize()
-        if dist.is_initialized():
-            dist.barrier()
-
-        return videos[0] if self.rank == 0 else None
-
-
-
-def i2v_generate(self,
-                 input_prompt,
-                 img,
-                 max_area=720 * 1280,
-                 frame_num=81,
-                 shift=5.0,
-                 sample_solver='unipc',
-                 sampling_steps=40,
-                 guide_scale=5.0,
-                 n_prompt="",
-                 seed=-1,
-                 offload_model=True):
-        r"""
-        Generates video frames from input image and text prompt using diffusion process.
-
-        Args:
-            input_prompt (`str`):
-                Text prompt for content generation.
-            img (PIL.Image.Image):
-                Input image tensor. Shape: [3, H, W]
-            max_area (`int`, *optional*, defaults to 720*1280):
-                Maximum pixel area for latent space calculation. Controls video resolution scaling
-            frame_num (`int`, *optional*, defaults to 81):
-                How many frames to sample from a video. The number should be 4n+1
-            shift (`float`, *optional*, defaults to 5.0):
-                Noise schedule shift parameter. Affects temporal dynamics
-                [NOTE]: If you want to generate a 480p video, it is recommended to set the shift value to 3.0.
-            sample_solver (`str`, *optional*, defaults to 'unipc'):
-                Solver used to sample the video.
-            sampling_steps (`int`, *optional*, defaults to 40):
-                Number of diffusion sampling steps. Higher values improve quality but slow generation
-            guide_scale (`float`, *optional*, defaults 5.0):
-                Classifier-free guidance scale. Controls prompt adherence vs. creativity
-            n_prompt (`str`, *optional*, defaults to ""):
-                Negative prompt for content exclusion. If not given, use `config.sample_neg_prompt`
-            seed (`int`, *optional*, defaults to -1):
-                Random seed for noise generation. If -1, use random seed
-            offload_model (`bool`, *optional*, defaults to True):
-                If True, offloads models to CPU during generation to save VRAM
-
-        Returns:
-            torch.Tensor:
-                Generated video frames tensor. Dimensions: (C, N H, W) where:
-                - C: Color channels (3 for RGB)
-                - N: Number of frames (81)
-                - H: Frame height (from max_area)
-                - W: Frame width from max_area)
-        """
-        img = TF.to_tensor(img).sub_(0.5).div_(0.5).to(self.device)
-
-        F = frame_num
-        h, w = img.shape[1:]
-        aspect_ratio = h / w
-        lat_h = round(
-            np.sqrt(max_area * aspect_ratio) // self.vae_stride[1] //
-            self.patch_size[1] * self.patch_size[1])
-        lat_w = round(
-            np.sqrt(max_area / aspect_ratio) // self.vae_stride[2] //
-            self.patch_size[2] * self.patch_size[2])
-        h = lat_h * self.vae_stride[1]
-        w = lat_w * self.vae_stride[2]
-
-        max_seq_len = ((F - 1) // self.vae_stride[0] + 1) * lat_h * lat_w // (
-            self.patch_size[1] * self.patch_size[2])
-        max_seq_len = int(math.ceil(max_seq_len / self.sp_size)) * self.sp_size
-
-        seed = seed if seed >= 0 else random.randint(0, sys.maxsize)
-        seed_g = torch.Generator(device=self.device)
-        seed_g.manual_seed(seed)
-        noise = torch.randn(
-            self.vae.model.z_dim, 
-            (F - 1) // self.vae_stride[0] + 1,
-            lat_h,
-            lat_w,
-            dtype=torch.float32,
-            generator=seed_g,
-            device=self.device)
-
-        msk = torch.ones(1, F, lat_h, lat_w, device=self.device)
-        msk[:, 1:] = 0
-        msk = torch.concat([
-            torch.repeat_interleave(msk[:, 0:1], repeats=4, dim=1), msk[:, 1:]
-        ],
-                           dim=1)
-        msk = msk.view(1, msk.shape[1] // 4, 4, lat_h, lat_w)
-        msk = msk.transpose(1, 2)[0]
-
-        if n_prompt == "":
-            n_prompt = self.sample_neg_prompt
-
-        # preprocess
-        if not self.t5_cpu:
-            self.text_encoder.model.to(self.device)
-            context = self.text_encoder([input_prompt], self.device)
-            context_null = self.text_encoder([n_prompt], self.device)
-            if offload_model:
-                self.text_encoder.model.cpu()
-        else:
-            context = self.text_encoder([input_prompt], torch.device('cpu'))
-            context_null = self.text_encoder([n_prompt], torch.device('cpu'))
-            context = [t.to(self.device) for t in context]
-            context_null = [t.to(self.device) for t in context_null]
-
-        self.clip.model.to(self.device)
-        clip_context = self.clip.visual([img[:, None, :, :]])
-        if offload_model:
-            self.clip.model.cpu()
-
-        y = self.vae.encode([
-            torch.concat([
-                torch.nn.functional.interpolate(
-                    img[None].cpu(), size=(h, w), mode='bicubic').transpose(
-                        0, 1),
-                torch.zeros(3, F-1, h, w)
-            ],
-                         dim=1).to(self.device)
-        ])[0]
-        y = torch.concat([msk, y])
-
-        @contextmanager
-        def noop_no_sync():
-            yield
-
-        no_sync = getattr(self.model, 'no_sync', noop_no_sync)
-
-        # evaluation mode
-        with amp.autocast(dtype=self.param_dtype), torch.no_grad(), no_sync():
-
-            if sample_solver == 'unipc':
-                sample_scheduler = FlowUniPCMultistepScheduler(
-                    num_train_timesteps=self.num_train_timesteps,
-                    shift=1,
-                    use_dynamic_shifting=False)
-                sample_scheduler.set_timesteps(
-                    sampling_steps, device=self.device, shift=shift)
-                timesteps = sample_scheduler.timesteps
-            elif sample_solver == 'dpm++':
-                sample_scheduler = FlowDPMSolverMultistepScheduler(
-                    num_train_timesteps=self.num_train_timesteps,
-                    shift=1,
-                    use_dynamic_shifting=False)
-                sampling_sigmas = get_sampling_sigmas(sampling_steps, shift)
-                timesteps, _ = retrieve_timesteps(
-                    sample_scheduler,
-                    device=self.device,
-                    sigmas=sampling_sigmas)
-            else:
-                raise NotImplementedError("Unsupported solver.")
-
-            # sample videos
-            latent = noise
-
-            arg_c = {
-                'context': [context[0]],
-                'clip_fea': clip_context,
-                'seq_len': max_seq_len,
-                'y': [y],
-                # 'cond_flag': True,
-            }
-
-            arg_null = {
-                'context': context_null,
-                'clip_fea': clip_context,
-                'seq_len': max_seq_len,
-                'y': [y],
-                # 'cond_flag': False,
-            }
-
-            if offload_model:
-                torch.cuda.empty_cache()
-
-            self.model.to(self.device)
-            for _, t in enumerate(tqdm(timesteps)):
-                latent_model_input = [latent.to(self.device)]
-                timestep = [t]
-
-                timestep = torch.stack(timestep).to(self.device)
-
-                noise_pred_cond = self.model(
-                    latent_model_input, t=timestep, **arg_c)[0].to(
-                        torch.device('cpu') if offload_model else self.device)
-                if offload_model:
-                    torch.cuda.empty_cache()
-                noise_pred_uncond = self.model(
-                    latent_model_input, t=timestep, **arg_null)[0].to(
-                        torch.device('cpu') if offload_model else self.device)
-                if offload_model:
-                    torch.cuda.empty_cache()
-
-                noise_pred = noise_pred_uncond + guide_scale * (
-                    noise_pred_cond - noise_pred_uncond)
-
-                latent = latent.to(
-                    torch.device('cpu') if offload_model else self.device)
-
-                temp_x0 = sample_scheduler.step(
-                    noise_pred.unsqueeze(0),
-                    t,
-                    latent.unsqueeze(0),
-                    return_dict=False,
-                    generator=seed_g)[0]
-                latent = temp_x0.squeeze(0)
-
-                x0 = [latent.to(self.device)]
-                del latent_model_input, timestep
-
-            if offload_model:
-                self.model.cpu()
-                torch.cuda.empty_cache()
-
-            if self.rank == 0:
-                videos = self.vae.decode(x0)
-
-        del noise, latent
-        del sample_scheduler
-        if offload_model:
-            gc.collect()
-            torch.cuda.synchronize()
-        if dist.is_initialized():
-            dist.barrier()
-
-        return videos[0] if self.rank == 0 else None
+EXAMPLE_PROMPT = {
+    "t2v-1.3B": {
+        "prompt":
+            "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.",
+    },
+    "t2v-14B": {
+        "prompt":
+            "Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage.",
+    },
+    "t2i-14B": {
+        "prompt": "一个朴素端庄的美人",
+    },
+    "i2v-14B": {
+        "prompt":
+            "Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside.",
+        "image":
+            "examples/i2v_input.JPG",
+    },
+    "flf2v-14B": {
+        "prompt":
+            "CG动画风格，一只蓝色的小鸟从地面起飞，煽动翅膀。小鸟羽毛细腻，胸前有独特的花纹，背景是蓝天白云，阳光明媚。镜跟随小鸟向上移动，展现出小鸟飞翔的姿态和天空的广阔。近景，仰视视角。",
+        "first_frame":
+            "examples/flf2v_input_first_frame.png",
+        "last_frame":
+            "examples/flf2v_input_last_frame.png",
+    },
+    "vace-1.3B": {
+        "src_ref_images":
+            'examples/girl.png,examples/snake.png',
+        "prompt":
+            "在一个欢乐而充满节日气氛的场景中，穿着鲜艳红色春服的小女孩正与她的可爱卡通蛇嬉戏。她的春服上绣着金色吉祥图案，散发着喜庆的气息，脸上洋溢着灿烂的笑容。蛇身呈现出亮眼的绿色，形状圆润，宽大的眼睛让它显得既友善又幽默。小女孩欢快地用手轻轻抚摸着蛇的头部，共同享受着这温馨的时刻。周围五彩斑斓的灯笼和彩带装饰着环境，阳光透过洒在她们身上，营造出一个充满友爱与幸福的新年氛围。"
+    },
+    "vace-14B": {
+        "src_ref_images":
+            'examples/girl.png,examples/snake.png',
+        "prompt":
+            "在一个欢乐而充满节日气氛的场景中，穿着鲜艳红色春服的小女孩正与她的可爱卡通蛇嬉戏。她的春服上绣着金色吉祥图案，散发着喜庆的气息，脸上洋溢着灿烂的笑容。蛇身呈现出亮眼的绿色，形状圆润，宽大的眼睛让它显得既友善又幽默。小女孩欢快地用手轻轻抚摸着蛇的头部，共同享受着这温馨的时刻。周围五彩斑斓的灯笼和彩带装饰着环境，阳光透过洒在她们身上，营造出一个充满友爱与幸福的新年氛围。"
+    }
+}
 
 def magcache_calibration(
     self,
@@ -562,6 +193,8 @@ def magcache_calibration(
         save_json("wan2_1_cos_dis", self.cos_dis)
     return [u.float() for u in x]
 
+
+
 def magcache_forward(
     self,
     x,
@@ -678,6 +311,255 @@ def magcache_forward(
         self.accumulated_steps = [0, 0]
     return [u.float() for u in x]
 
+def magcache_vace_calibration(
+    self,
+    x,
+    t,
+    vace_context,
+    context,
+    seq_len,
+    vace_context_scale=1.0,
+    clip_fea=None,
+    y=None,
+):
+    r"""
+    Forward pass through the diffusion model
+
+    Args:
+        x (List[Tensor]):
+            List of input video tensors, each with shape [C_in, F, H, W]
+        t (Tensor):
+            Diffusion timesteps tensor of shape [B]
+        context (List[Tensor]):
+            List of text embeddings each with shape [L, C]
+        seq_len (`int`):
+            Maximum sequence length for positional encoding
+        clip_fea (Tensor, *optional*):
+            CLIP image features for image-to-video mode
+        y (List[Tensor], *optional*):
+            Conditional video inputs for image-to-video mode, same shape as x
+
+    Returns:
+        List[Tensor]:
+            List of denoised video tensors with original input shapes [C_out, F, H / 8, W / 8]
+    """
+    # if self.model_type == 'i2v':
+    #     assert clip_fea is not None and y is not None
+    # params
+    device = self.patch_embedding.weight.device
+    if self.freqs.device != device:
+        self.freqs = self.freqs.to(device)
+
+    # if y is not None:
+    #     x = [torch.cat([u, v], dim=0) for u, v in zip(x, y)]
+
+    # embeddings
+    x = [self.patch_embedding(u.unsqueeze(0)) for u in x]
+    grid_sizes = torch.stack(
+        [torch.tensor(u.shape[2:], dtype=torch.long) for u in x])
+    x = [u.flatten(2).transpose(1, 2) for u in x]
+    seq_lens = torch.tensor([u.size(1) for u in x], dtype=torch.long)
+    assert seq_lens.max() <= seq_len
+    x = torch.cat([
+        torch.cat([u, u.new_zeros(1, seq_len - u.size(1), u.size(2))],
+                    dim=1) for u in x
+    ])
+
+    # time embeddings
+    with amp.autocast(dtype=torch.float32):
+        e = self.time_embedding(
+            sinusoidal_embedding_1d(self.freq_dim, t).float())
+        e0 = self.time_projection(e).unflatten(1, (6, self.dim))
+        assert e.dtype == torch.float32 and e0.dtype == torch.float32
+
+    # context
+    context_lens = None
+    context = self.text_embedding(
+        torch.stack([
+            torch.cat(
+                [u, u.new_zeros(self.text_len - u.size(0), u.size(1))])
+            for u in context
+        ]))
+
+    # if clip_fea is not None:
+    #     context_clip = self.img_emb(clip_fea)  # bs x 257 x dim
+    #     context = torch.concat([context_clip, context], dim=1)
+
+    # arguments
+    kwargs = dict(
+        e=e0,
+        seq_lens=seq_lens,
+        grid_sizes=grid_sizes,
+        freqs=self.freqs,
+        context=context,
+        context_lens=context_lens)
+    
+    skip_forward = False
+    ori_x = x
+
+    # Original Forward 
+    hints = self.forward_vace(x, vace_context, seq_len, kwargs)
+    kwargs['hints'] = hints
+    kwargs['context_scale'] = vace_context_scale
+
+    for block in self.blocks:
+        x = block(x, **kwargs)
+
+    # Calibration Process
+    residual_x = x - ori_x
+    if self.cnt>=2:
+        norm_ratio = ((residual_x.norm(dim=-1)/self.residual_cache[self.cnt%2].norm(dim=-1)).mean()).item()
+        norm_std = (residual_x.norm(dim=-1)/self.residual_cache[self.cnt%2].norm(dim=-1)).std().item()
+        cos_dis = (1-F.cosine_similarity(residual_x, self.residual_cache[self.cnt%2], dim=-1, eps=1e-8)).mean().item()
+        self.norm_ratio.append(round(norm_ratio, 5))
+        self.norm_std.append(round(norm_std, 5))
+        self.cos_dis.append(round(cos_dis, 5))
+        print(f"time: {self.cnt}, norm_ratio: {norm_ratio}, norm_std: {norm_std}, cos_dis: {cos_dis}")
+    self.residual_cache[self.cnt%2] = residual_x
+    
+    # head
+    x = self.head(x, e)
+    # unpatchify
+    x = self.unpatchify(x, grid_sizes)
+    
+    self.cnt += 1
+    if self.cnt >= self.num_steps: # clear the history of current video and prepare for generating the next video.
+        self.cnt = 0
+        print("norm ratio")
+        print(self.norm_ratio)
+        print("norm std")
+        print(self.norm_std)
+        print("cos_dis")
+        print(self.cos_dis)
+        save_json("wan2_1_mag_ratio", self.norm_ratio)
+        save_json("wan2_1_mag_std", self.norm_std)
+        save_json("wan2_1_cos_dis", self.cos_dis)
+    return [u.float() for u in x]
+
+def magcache_vace_forward(
+    self,
+    x,
+    t,
+    vace_context,
+    context,
+    seq_len,
+    vace_context_scale=1.0,
+    clip_fea=None,
+    y=None,
+):
+    r"""
+    Forward pass through the diffusion model
+
+    Args:
+        x (List[Tensor]):
+            List of input video tensors, each with shape [C_in, F, H, W]
+        t (Tensor):
+            Diffusion timesteps tensor of shape [B]
+        context (List[Tensor]):
+            List of text embeddings each with shape [L, C]
+        seq_len (`int`):
+            Maximum sequence length for positional encoding
+        clip_fea (Tensor, *optional*):
+            CLIP image features for image-to-video mode
+        y (List[Tensor], *optional*):
+            Conditional video inputs for image-to-video mode, same shape as x
+
+    Returns:
+        List[Tensor]:
+            List of denoised video tensors with original input shapes [C_out, F, H / 8, W / 8]
+    """
+    # if self.model_type == 'i2v':
+    #     assert clip_fea is not None and y is not None
+    # params
+    device = self.patch_embedding.weight.device
+    if self.freqs.device != device:
+        self.freqs = self.freqs.to(device)
+
+    # if y is not None:
+    #     x = [torch.cat([u, v], dim=0) for u, v in zip(x, y)]
+
+    # embeddings
+    x = [self.patch_embedding(u.unsqueeze(0)) for u in x]
+    grid_sizes = torch.stack(
+        [torch.tensor(u.shape[2:], dtype=torch.long) for u in x])
+    x = [u.flatten(2).transpose(1, 2) for u in x]
+    seq_lens = torch.tensor([u.size(1) for u in x], dtype=torch.long)
+    assert seq_lens.max() <= seq_len
+    x = torch.cat([
+        torch.cat([u, u.new_zeros(1, seq_len - u.size(1), u.size(2))],
+                    dim=1) for u in x
+    ])
+
+    # time embeddings
+    with amp.autocast(dtype=torch.float32):
+        e = self.time_embedding(
+            sinusoidal_embedding_1d(self.freq_dim, t).float())
+        e0 = self.time_projection(e).unflatten(1, (6, self.dim))
+        assert e.dtype == torch.float32 and e0.dtype == torch.float32
+
+    # context
+    context_lens = None
+    context = self.text_embedding(
+        torch.stack([
+            torch.cat(
+                [u, u.new_zeros(self.text_len - u.size(0), u.size(1))])
+            for u in context
+        ]))
+
+    # if clip_fea is not None:
+    #     context_clip = self.img_emb(clip_fea)  # bs x 257 x dim
+    #     context = torch.concat([context_clip, context], dim=1)
+
+    # arguments
+    kwargs = dict(
+        e=e0,
+        seq_lens=seq_lens,
+        grid_sizes=grid_sizes,
+        freqs=self.freqs,
+        context=context,
+        context_lens=context_lens)
+    
+    skip_forward = False
+    ori_x = x
+    if self.cnt>=int(self.num_steps*self.retention_ratio):
+        cur_mag_ratio = self.mag_ratios[self.cnt] # conditional and unconditional in one list
+        self.accumulated_ratio[self.cnt%2] = self.accumulated_ratio[self.cnt%2]*cur_mag_ratio # magnitude ratio between current step and the cached step
+        self.accumulated_steps[self.cnt%2] += 1 # skip steps plus 1
+        cur_skip_err = np.abs(1-self.accumulated_ratio[self.cnt%2]) # skip error of current steps
+        self.accumulated_err[self.cnt%2] += cur_skip_err # accumulated error of multiple steps
+        
+        if self.accumulated_err[self.cnt%2]<self.magcache_thresh and self.accumulated_steps[self.cnt%2]<=self.K:
+            skip_forward = True
+            print("skip: ", self.cnt)
+            residual_x = self.residual_cache[self.cnt%2]
+        else:
+            self.accumulated_err[self.cnt%2] = 0
+            self.accumulated_steps[self.cnt%2] = 0
+            self.accumulated_ratio[self.cnt%2] = 1.0
+
+    if skip_forward: # skip this step with cached residual
+        x =  x + residual_x 
+    else:
+        # Original Forward 
+        hints = self.forward_vace(x, vace_context, seq_len, kwargs)
+        kwargs['hints'] = hints
+        kwargs['context_scale'] = vace_context_scale
+
+        for block in self.blocks:
+            x = block(x, **kwargs)
+        residual_x = x - ori_x
+        
+    self.residual_cache[self.cnt%2] = residual_x 
+    x = self.head(x, e)
+    x = self.unpatchify(x, grid_sizes)
+    self.cnt += 1
+    if self.cnt >= self.num_steps: # clear the history of current video and prepare for generating the next video.
+        self.cnt = 0
+        self.accumulated_ratio = [1.0, 1.0]
+        self.accumulated_err = [0.0, 0.0]
+        self.accumulated_steps = [0, 0]
+    return [u.float() for u in x]
+
 def _validate_args(args):
     # Basic check
     assert args.ckpt_dir is not None, "Please specify the checkpoint directory."
@@ -686,12 +568,16 @@ def _validate_args(args):
 
     # The default sampling steps are 40 for image-to-video tasks and 50 for text-to-video tasks.
     if args.sample_steps is None:
-        args.sample_steps = 40 if "i2v" in args.task else 50
+        args.sample_steps = 50
+        if "i2v" in args.task:
+            args.sample_steps = 40
 
     if args.sample_shift is None:
         args.sample_shift = 5.0
         if "i2v" in args.task and args.size in ["832*480", "480*832"]:
             args.sample_shift = 3.0
+        elif "flf2v" in args.task or "vace" in args.task:
+            args.sample_shift = 16
 
     # The default number of frames are 1 for text-to-image tasks and 81 for other tasks.
     if args.frame_num is None:
@@ -774,6 +660,22 @@ def _parse_args():
         default=None,
         help="The file to save the generated image or video to.")
     parser.add_argument(
+        "--src_video",
+        type=str,
+        default=None,
+        help="The file of the source video. Default None.")
+    parser.add_argument(
+        "--src_mask",
+        type=str,
+        default=None,
+        help="The file of the source mask. Default None.")
+    parser.add_argument(
+        "--src_ref_images",
+        type=str,
+        default=None,
+        help="The file list of the source reference images. Separated by ','. Default None."
+    )
+    parser.add_argument(
         "--prompt",
         type=str,
         default=None,
@@ -797,8 +699,8 @@ def _parse_args():
     parser.add_argument(
         "--prompt_extend_target_lang",
         type=str,
-        default="ch",
-        choices=["ch", "en"],
+        default="zh",
+        choices=["zh", "en"],
         help="The target language of prompt extend.")
     parser.add_argument(
         "--base_seed",
@@ -809,7 +711,19 @@ def _parse_args():
         "--image",
         type=str,
         default=None,
-        help="The image to generate the video from.")
+        help="[image to video] The image to generate the video from.")
+    parser.add_argument(
+        "--first_frame",
+        type=str,
+        default=None,
+        help="[first-last frame to video] The image (first frame) to generate the video from."
+    )
+    parser.add_argument(
+        "--last_frame",
+        type=str,
+        default=None,
+        help="[first-last frame to video] The image (last frame) to generate the video from."
+    )
     parser.add_argument(
         "--sample_solver",
         type=str,
@@ -854,7 +768,6 @@ def _parse_args():
         default=False,
         help="Calibrate the Average Magnitude Ratio for MagCache.")
         
-
     args = parser.parse_args()
 
     _validate_args(args)
@@ -902,8 +815,10 @@ def generate(args):
 
     if args.ulysses_size > 1 or args.ring_size > 1:
         assert args.ulysses_size * args.ring_size == world_size, f"The number of ulysses_size and ring_size should be equal to the world size."
-        from xfuser.core.distributed import (initialize_model_parallel,
-                                             init_distributed_environment)
+        from xfuser.core.distributed import (
+            init_distributed_environment,
+            initialize_model_parallel,
+        )
         init_distributed_environment(
             rank=dist.get_rank(), world_size=dist.get_world_size())
 
@@ -916,7 +831,8 @@ def generate(args):
     if args.use_prompt_extend:
         if args.prompt_extend_method == "dashscope":
             prompt_expander = DashScopePromptExpander(
-                model_name=args.prompt_extend_model, is_vl="i2v" in args.task)
+                model_name=args.prompt_extend_model,
+                is_vl="i2v" in args.task or "flf2v" in args.task)
         elif args.prompt_extend_method == "local_qwen":
             prompt_expander = QwenPromptExpander(
                 model_name=args.prompt_extend_model,
@@ -928,7 +844,7 @@ def generate(args):
 
     cfg = WAN_CONFIGS[args.task]
     if args.ulysses_size > 1:
-        assert cfg.num_heads % args.ulysses_size == 0, f"`num_heads` must be divisible by `ulysses_size`."
+        assert cfg.num_heads % args.ulysses_size == 0, f"`{cfg.num_heads=}` cannot be divided evenly by `{args.ulysses_size=}`."
 
     logging.info(f"Generation job args: {args}")
     logging.info(f"Generation model config: {cfg}")
@@ -975,10 +891,9 @@ def generate(args):
             use_usp=(args.ulysses_size > 1 or args.ring_size > 1),
             t5_cpu=args.t5_cpu,
         )
-
+        
         # MagCache
         if args.use_magcache:
-            wan_t2v.__class__.generate = t2v_generate
             wan_t2v.model.__class__.forward = magcache_forward
             wan_t2v.model.__class__.cnt = 0
             wan_t2v.model.__class__.num_steps = args.sample_steps*2
@@ -1004,7 +919,6 @@ def generate(args):
                 wan_t2v.model.__class__.mag_ratios = interpolated_mag_ratios
             
         if args.magcache_calibration:
-            wan_t2v.__class__.generate = t2v_generate
             wan_t2v.model.__class__.forward = magcache_calibration
             wan_t2v.model.__class__.cnt = 0
             wan_t2v.model.__class__.num_steps = args.sample_steps*2
@@ -1012,6 +926,7 @@ def generate(args):
             wan_t2v.model.__class__.norm_std = [] # std of magnitude ratio
             wan_t2v.model.__class__.cos_dis = [] # cosine distance of residual features
             wan_t2v.model.__class__.residual_cache = [None, None]
+
 
         logging.info(
             f"Generating {'image' if 't2i' in args.task else 'video'} ...")
@@ -1026,7 +941,7 @@ def generate(args):
             seed=args.base_seed,
             offload_model=args.offload_model)
 
-    else:
+    elif "i2v" in args.task:
         if args.prompt is None:
             args.prompt = EXAMPLE_PROMPT[args.task]["prompt"]
         if args.image is None:
@@ -1069,9 +984,9 @@ def generate(args):
             use_usp=(args.ulysses_size > 1 or args.ring_size > 1),
             t5_cpu=args.t5_cpu,
         )
+        
         # MagCache
         if args.use_magcache:
-            wan_i2v.__class__.generate = i2v_generate
             wan_i2v.model.__class__.forward = magcache_forward
             wan_i2v.model.__class__.cnt = 0
             wan_i2v.model.__class__.num_steps = args.sample_steps*2
@@ -1094,7 +1009,6 @@ def generate(args):
                 interpolated_mag_ratios = np.concatenate([mag_ratio_con.reshape(-1, 1), mag_ratio_ucon.reshape(-1, 1)], axis=1).reshape(-1)
                 wan_i2v.model.__class__.mag_ratios = interpolated_mag_ratios
         if args.magcache_calibration:
-            wan_i2v.__class__.generate = i2v_generate
             wan_i2v.model.__class__.forward = magcache_calibration
             wan_i2v.model.__class__.cnt = 0
             wan_i2v.model.__class__.num_steps = args.sample_steps*2
@@ -1115,6 +1029,156 @@ def generate(args):
             guide_scale=args.sample_guide_scale,
             seed=args.base_seed,
             offload_model=args.offload_model)
+    elif "flf2v" in args.task:
+        if args.prompt is None:
+            args.prompt = EXAMPLE_PROMPT[args.task]["prompt"]
+        if args.first_frame is None or args.last_frame is None:
+            args.first_frame = EXAMPLE_PROMPT[args.task]["first_frame"]
+            args.last_frame = EXAMPLE_PROMPT[args.task]["last_frame"]
+        logging.info(f"Input prompt: {args.prompt}")
+        logging.info(f"Input first frame: {args.first_frame}")
+        logging.info(f"Input last frame: {args.last_frame}")
+        first_frame = Image.open(args.first_frame).convert("RGB")
+        last_frame = Image.open(args.last_frame).convert("RGB")
+        if args.use_prompt_extend:
+            logging.info("Extending prompt ...")
+            if rank == 0:
+                prompt_output = prompt_expander(
+                    args.prompt,
+                    tar_lang=args.prompt_extend_target_lang,
+                    image=[first_frame, last_frame],
+                    seed=args.base_seed)
+                if prompt_output.status == False:
+                    logging.info(
+                        f"Extending prompt failed: {prompt_output.message}")
+                    logging.info("Falling back to original prompt.")
+                    input_prompt = args.prompt
+                else:
+                    input_prompt = prompt_output.prompt
+                input_prompt = [input_prompt]
+            else:
+                input_prompt = [None]
+            if dist.is_initialized():
+                dist.broadcast_object_list(input_prompt, src=0)
+            args.prompt = input_prompt[0]
+            logging.info(f"Extended prompt: {args.prompt}")
+
+        logging.info("Creating WanFLF2V pipeline.")
+        wan_flf2v = wan.WanFLF2V(
+            config=cfg,
+            checkpoint_dir=args.ckpt_dir,
+            device_id=device,
+            rank=rank,
+            t5_fsdp=args.t5_fsdp,
+            dit_fsdp=args.dit_fsdp,
+            use_usp=(args.ulysses_size > 1 or args.ring_size > 1),
+            t5_cpu=args.t5_cpu,
+        )
+
+        logging.info("Generating video ...")
+        video = wan_flf2v.generate(
+            args.prompt,
+            first_frame,
+            last_frame,
+            max_area=MAX_AREA_CONFIGS[args.size],
+            frame_num=args.frame_num,
+            shift=args.sample_shift,
+            sample_solver=args.sample_solver,
+            sampling_steps=args.sample_steps,
+            guide_scale=args.sample_guide_scale,
+            seed=args.base_seed,
+            offload_model=args.offload_model)
+    elif "vace" in args.task:
+        if args.prompt is None:
+            args.prompt = EXAMPLE_PROMPT[args.task]["prompt"]
+            args.src_video = EXAMPLE_PROMPT[args.task].get("src_video", None)
+            args.src_mask = EXAMPLE_PROMPT[args.task].get("src_mask", None)
+            args.src_ref_images = EXAMPLE_PROMPT[args.task].get(
+                "src_ref_images", None)
+
+        logging.info(f"Input prompt: {args.prompt}")
+        if args.use_prompt_extend and args.use_prompt_extend != 'plain':
+            logging.info("Extending prompt ...")
+            if rank == 0:
+                prompt = prompt_expander.forward(args.prompt)
+                logging.info(
+                    f"Prompt extended from '{args.prompt}' to '{prompt}'")
+                input_prompt = [prompt]
+            else:
+                input_prompt = [None]
+            if dist.is_initialized():
+                dist.broadcast_object_list(input_prompt, src=0)
+            args.prompt = input_prompt[0]
+            logging.info(f"Extended prompt: {args.prompt}")
+
+        logging.info("Creating VACE pipeline.")
+        wan_vace = wan.WanVace(
+            config=cfg,
+            checkpoint_dir=args.ckpt_dir,
+            device_id=device,
+            rank=rank,
+            t5_fsdp=args.t5_fsdp,
+            dit_fsdp=args.dit_fsdp,
+            use_usp=(args.ulysses_size > 1 or args.ring_size > 1),
+            t5_cpu=args.t5_cpu,
+        )
+        # MagCache
+        if args.use_magcache:
+            wan_vace.model.__class__.forward = magcache_vace_forward
+            wan_vace.model.__class__.cnt = 0
+            wan_vace.model.__class__.num_steps = args.sample_steps*2
+            wan_vace.model.__class__.magcache_thresh = args.magcache_thresh
+            wan_vace.model.__class__.K = args.magcache_K
+            wan_vace.model.__class__.accumulated_err = [0.0, 0.0]
+            wan_vace.model.__class__.accumulated_steps = [0, 0]
+            wan_vace.model.__class__.accumulated_ratio = [1.0, 1.0]
+            wan_vace.model.__class__.retention_ratio = args.retention_ratio
+            wan_vace.model.__class__.residual_cache = [None, None]
+            # note: we utilze the sdpa to forward the calibration, so the mag_ratios may be different with those using flash attention2 in the last two decimal digits
+            # the [1.0]*1 is the padding value of first magnitude ratio. 
+            # if 'vace-14B' in args.ckpt_dir:
+                # wan_vace.model.__class__.mag_ratios = np.array([1.0]*2+[1.02504, 1.03017, 1.00025, 1.00251, 0.9985, 0.99962, 0.99779, 0.99771, 0.9966, 0.99658, 0.99482, 0.99476, 0.99467, 0.99451, 0.99664, 0.99656, 0.99434, 0.99431, 0.99533, 0.99545, 0.99468, 0.99465, 0.99438, 0.99434, 0.99516, 0.99517, 0.99384, 0.9938, 0.99404, 0.99401, 0.99517, 0.99516, 0.99409, 0.99408, 0.99428, 0.99426, 0.99347, 0.99343, 0.99418, 0.99416, 0.99271, 0.99269, 0.99313, 0.99311, 0.99215, 0.99215, 0.99218, 0.99215, 0.99216, 0.99217, 0.99163, 0.99161, 0.99138, 0.99135, 0.98982, 0.9898, 0.98996, 0.98995, 0.9887, 0.98866, 0.98772, 0.9877, 0.98767, 0.98765, 0.98573, 0.9857, 0.98501, 0.98498, 0.9838, 0.98376, 0.98177, 0.98173, 0.98037, 0.98035, 0.97678, 0.97677, 0.97546, 0.97543, 0.97184, 0.97183, 0.96711, 0.96708, 0.96349, 0.96345, 0.95629, 0.95625, 0.94926, 0.94929, 0.93964, 0.93961, 0.92511, 0.92504, 0.90693, 0.90678, 0.8796, 0.87945, 0.86111, 0.86189])
+            if 'VACE-1.3B' in args.ckpt_dir:
+                wan_vace.model.__class__.mag_ratios = np.array([1.0]*2+[1.00129, 1.0019, 1.00056, 1.00053, 0.99776, 0.99746, 0.99726, 0.99789, 0.99725, 0.99785, 0.9958, 0.99625, 0.99703, 0.99728, 0.99863, 0.9988, 0.99735, 0.99731, 0.99714, 0.99707, 0.99697, 0.99687, 0.9969, 0.99683, 0.99695, 0.99702, 0.99697, 0.99701, 0.99608, 0.99617, 0.99721, 0.9973, 0.99649, 0.99657, 0.99659, 0.99667, 0.99727, 0.99731, 0.99603, 0.99612, 0.99652, 0.99659, 0.99635, 0.9964, 0.9958, 0.99585, 0.99581, 0.99585, 0.99573, 0.99579, 0.99531, 0.99534, 0.99505, 0.99508, 0.99481, 0.99484, 0.99426, 0.99433, 0.99403, 0.99406, 0.99357, 0.9936, 0.99302, 0.99305, 0.99243, 0.99247, 0.9916, 0.99164, 0.99085, 0.99087, 0.98985, 0.9899, 0.98857, 0.98859, 0.98717, 0.98721, 0.98551, 0.98556, 0.98301, 0.98305, 0.9805, 0.98055, 0.97635, 0.97641, 0.97183, 0.97187, 0.96496, 0.965, 0.95526, 0.95533, 0.94102, 0.94104, 0.91809, 0.91815, 0.87871, 0.87879, 0.80141, 0.80164])
+            
+            # Nearest interpolation when the num_steps is different from the length of mag_ratios
+            if len(wan_vace.model.__class__.mag_ratios) != args.sample_steps*2:
+                mag_ratio_con = nearest_interp(wan_vace.model.__class__.mag_ratios[0::2], args.sample_steps)
+                mag_ratio_ucon = nearest_interp(wan_vace.model.__class__.mag_ratios[1::2], args.sample_steps)
+                interpolated_mag_ratios = np.concatenate([mag_ratio_con.reshape(-1, 1), mag_ratio_ucon.reshape(-1, 1)], axis=1).reshape(-1)
+                wan_vace.model.__class__.mag_ratios = interpolated_mag_ratios
+            
+        if args.magcache_calibration:
+            wan_vace.model.__class__.forward = magcache_vace_calibration
+            wan_vace.model.__class__.cnt = 0
+            wan_vace.model.__class__.num_steps = args.sample_steps*2
+            wan_vace.model.__class__.norm_ratio = [] # mean of magnitude ratio
+            wan_vace.model.__class__.norm_std = [] # std of magnitude ratio
+            wan_vace.model.__class__.cos_dis = [] # cosine distance of residual features
+            wan_vace.model.__class__.residual_cache = [None, None]
+        
+        src_video, src_mask, src_ref_images = wan_vace.prepare_source(
+            [args.src_video], [args.src_mask], [
+                None if args.src_ref_images is None else
+                args.src_ref_images.split(',')
+            ], args.frame_num, SIZE_CONFIGS[args.size], device)
+
+        logging.info(f"Generating video...")
+        video = wan_vace.generate(
+            args.prompt,
+            src_video,
+            src_mask,
+            src_ref_images,
+            size=SIZE_CONFIGS[args.size],
+            frame_num=args.frame_num,
+            shift=args.sample_shift,
+            sample_solver=args.sample_solver,
+            sampling_steps=args.sample_steps,
+            guide_scale=args.sample_guide_scale,
+            seed=args.base_seed,
+            offload_model=args.offload_model)
+    else:
+        raise ValueError(f"Unkown task type: {args.task}")
 
     if rank == 0:
         if args.save_file is None:
@@ -1126,7 +1190,7 @@ def generate(args):
                 magcache_params = f"_E{args.magcache_thresh}_K{args.magcache_K}_R{args.retention_ratio}".replace(".", "")
             else:
                 magcache_params = ""
-            args.save_file = f"magcache_{args.task}{magcache_params}_{args.size}_{args.ulysses_size}_{args.ring_size}_{formatted_prompt}_{formatted_time}".replace(" ", "").replace(",", "") + suffix
+            args.save_file = f"magcache_{args.task}_{magcache_params}_{args.size.replace('*','x') if sys.platform=='win32' else args.size}_{args.ulysses_size}_{args.ring_size}_{formatted_prompt}_{formatted_time}" + suffix
 
         if "t2i" in args.task:
             logging.info(f"Saving generated image to {args.save_file}")
@@ -1145,9 +1209,8 @@ def generate(args):
                 nrow=1,
                 normalize=True,
                 value_range=(-1, 1))
-    logging.info("Finished.")    
-    
-    
+    logging.info("Finished.")
+
 
 if __name__ == "__main__":
     args = _parse_args()
