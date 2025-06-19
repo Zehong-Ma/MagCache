@@ -55,6 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
 - [2025/6/17] 🔥 Support [VACE 1.3B](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) officially.
 - [2025/6/17] 🔥 MagCache is supported by [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper). Thanks @[kijai](https://github.com/kijai).
 - [2025/6/16] 🔥 Support [Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please try it in [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache).
@@ -79,6 +80,7 @@ If you develop/use MagCache in your projects and you would like more people to s
 
 **Image to Video** 
 - [MagCache4Wan2.1](./MagCache4Wan2.1/README.md)
+- [FramePack](./MagCache4FramePack/README.md)
 
 **Video Editing**
 - [MagCache4VACE](./MagCache4Wan2.1/README.md)
@@ -207,6 +209,17 @@ Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight in
 A tranquil tableau of an ornate Victorian streetlamp standing on a cobblestone street corner, illuminating the empty night
 </details>
 
+- **FramePack**
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/3d5e8481-09a6-41c2-91d8-7b924ae51042" width="100%" poster=""> </video>
+</div>
+<div class="content has-text-centered">
+  <img src="./assets/FramePack_header.jpg" style="width: 100%"><br>
+</div>
+<details style="width: 100%; margin: auto;">
+<summary>Prompt: The girl dances gracefully, with clear movements, full of charm.</summary>
+The girl dances gracefully, with clear movements, full of charm.
+</details>
 
 - **FLUX-dev T2I**
 
@@ -237,12 +250,12 @@ Prompt: A photo of a black bicycle.
 
 ## 💐 Acknowledgement 
 
-This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [FLUX](https://github.com/black-forest-labs/flux), [Chroma](https://huggingface.co/lodestones/Chroma), [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), and [TeaCache](https://github.com/ali-vilab/TeaCache). Thanks for their contributions!
+This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [FLUX](https://github.com/black-forest-labs/flux), [Chroma](https://huggingface.co/lodestones/Chroma), [Wan2.1](https://github.com/Wan-Video/Wan2.1), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FramePack](https://github.com/lllyasviel/FramePack), and [TeaCache](https://github.com/ali-vilab/TeaCache). Thanks for their contributions!
 
 ## 🔒 License 
 
 * The core code of this project is released under the Apache 2.0 license as found in the [LICENSE](./LICENSE) file. The core code includes the calibration and forward code of MagCache.
-* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [TeaCache](https://github.com/ali-vilab/TeaCache), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Chroma](https://huggingface.co/lodestones/Chroma), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
+* For [VideoSys](https://github.com/NUS-HPC-AI-Lab/VideoSys), [TeaCache](https://github.com/ali-vilab/TeaCache), [Diffusers](https://github.com/huggingface/diffusers), [Open-Sora](https://github.com/hpcaitech/Open-Sora), [HunyuanVideo](https://github.com/Tencent/HunyuanVideo), [FLUX](https://github.com/black-forest-labs/flux), [Chroma](https://huggingface.co/lodestones/Chroma), [FramePack](https://github.com/lllyasviel/FramePack), and [Wan2.1](https://github.com/Wan-Video/Wan2.1) please follow their LICENSE.
 
 ## 📖 Citation 
 If you find MagCache is useful in your research or applications, please consider giving us a star ⭐ and citing it by the following BibTeX entry.
