@@ -5,7 +5,7 @@
 
 + FramePack demo
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/3d5e8481-09a6-41c2-91d8-7b924ae51042" width="100%" poster=""> </video>
+  <video src="https://github.com/user-attachments/assets/91498f32-2aca-4c31-a710-2b54fa100cef" width="100%" poster=""> </video>
 </div>
 <div class="content has-text-centered">
   <img src="../assets/FramePack_header.jpg" style="width: 100%"><br>
