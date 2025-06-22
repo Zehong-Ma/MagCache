@@ -34,7 +34,7 @@ The girl dances gracefully, with clear movements, full of charm.
 
 |      Model            |        Original      |    TeaCache          |  MagCache (E010K3R02) | MagCache (E015K4R02)  |
 |:---------------------:|:-------------------------:|:--------------------:|:----------------------:|:----------------------:|
-|       FramePack 5s    |        9min          |     4min40s         |         4min40s        |         4min         |
+|       FramePack 5s    |        9min          |     4min40s         |         4min20s        |         4min         |
 |     FramePack-F1 5s   |        9min          |    4min            |        4min20s       |      3min40s         |
 
 

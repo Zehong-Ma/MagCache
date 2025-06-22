@@ -173,6 +173,9 @@ def magcache_framepack_calibration(
         print("cos_dis")
         print(self.cos_dis)
         self.cnt = 0
+        self.norm_ratio = []
+        self.norm_std = []
+        self.cos_dis = []
             
     hidden_states = self.gradient_checkpointing_method(self.norm_out, hidden_states, temb)
 
@@ -359,7 +362,6 @@ text_encoder_2 = CLIPTextModel.from_pretrained("hunyuanvideo-community/HunyuanVi
 tokenizer = LlamaTokenizerFast.from_pretrained("hunyuanvideo-community/HunyuanVideo", subfolder='tokenizer')
 tokenizer_2 = CLIPTokenizer.from_pretrained("hunyuanvideo-community/HunyuanVideo", subfolder='tokenizer_2')
 vae = AutoencoderKLHunyuanVideo.from_pretrained("hunyuanvideo-community/HunyuanVideo", subfolder='vae', torch_dtype=torch.float16).cpu()
-
 
 feature_extractor = SiglipImageProcessor.from_pretrained("lllyasviel/flux_redux_bfl", subfolder='feature_extractor')
 image_encoder = SiglipVisionModel.from_pretrained("lllyasviel/flux_redux_bfl", subfolder='image_encoder', torch_dtype=torch.float16).cpu()

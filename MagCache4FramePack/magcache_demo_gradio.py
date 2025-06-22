@@ -67,7 +67,7 @@ def initialize_magcache(self, enable_magcache=True, num_steps=25, magcache_thres
     self.magcache_thresh = magcache_thresh
     self.K = K
     self.retention_ratio = retention_ratio
-    self.mag_ratios = np.array([1.0]+[1.0754, 1.27807, 1.11596, 1.09504, 1.05188, 1.00844, 1.05779, 1.00657, 1.04142, 1.03101, 1.00679, 1.02556, 1.00908, 1.06949, 1.05438, 1.02214, 1.02321, 1.03019, 1.00779, 1.03381, 1.01886, 1.01161, 1.02968, 1.00544, 1.02822, 1.00689, 1.02119, 1.0105, 1.01044, 1.01572, 1.02972, 1.0094, 1.02368, 1.0226, 0.98965, 1.01588, 1.02146, 1.0018, 1.01687, 0.99436, 1.00283, 1.01139, 0.97122, 0.98251, 0.94513, 0.97656, 0.90943, 0.85703, 0.75456])
+    self.mag_ratios = np.array([1.0]+[1.26562, 1.23438, 1.03125, 1.02344, 1.03906, 1.01562, 1.03906, 1.05469, 1.02344, 1.03906, 0.99609, 1.03125, 1.02344, 1.01562, 1.02344, 1.00781, 1.04688, 0.98828, 1.0, 1.00781, 0.98828, 0.94141, 0.94141, 0.78906])
     # Nearest interpolation when the num_steps is different from the length of mag_ratios
     if len(self.mag_ratios) != num_steps:
         interpolated_mag_ratios = nearest_interp(self.mag_ratios, num_steps)
@@ -173,6 +173,9 @@ def magcache_framepack_calibration(
         print("cos_dis")
         print(self.cos_dis)
         self.cnt = 0
+        self.norm_ratio = []
+        self.norm_std = []
+        self.cos_dis = []
             
     hidden_states = self.gradient_checkpointing_method(self.norm_out, hidden_states, temb)
 
@@ -259,7 +262,7 @@ def magcache_framepack_forward(
             cur_skip_err = np.abs(1-self.accumulated_ratio)
             self.accumulated_err += cur_skip_err
             self.accumulated_steps += 1
-            if self.accumulated_err<=self.magcache_thresh and self.accumulated_steps<=self.K and np.abs(1-cur_mag_ratio)<=0.07:
+            if self.accumulated_err<=self.magcache_thresh and self.accumulated_steps<=self.K and np.abs(1-cur_mag_ratio)<=0.06:
                 skip_forward = True
             else:
                 self.accumulated_ratio = 1.0
