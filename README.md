@@ -55,6 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with [2x speedup] officially.
 - [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
 - [2025/6/17] 🔥 Support [VACE 1.3B](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) officially.
 - [2025/6/17] 🔥 MagCache is supported by [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper). Thanks @[kijai](https://github.com/kijai).
@@ -89,6 +90,8 @@ If you develop/use MagCache in your projects and you would like more people to s
 - [MagCache4FLUX](./MagCache4FLUX/README.md)
 - [MagCache4Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache)
 <!-- - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md) -->
+**Image Editing**
+- [MagCache4FLUX-Kontext](./MagCache4FLUX_Kontext/README.md)
 
 **Demos**
 - **HunyuanVideo T2V 720P**
@@ -240,6 +243,9 @@ The girl dances gracefully, with clear movements, full of charm.
 <summary>Prompt: A photo of a black bicycle.</summary>
 Prompt: A photo of a black bicycle.
 </details>
+
+- **FLUX-Kontext**
+![Image](https://github.com/user-attachments/assets/79d5f654-5828-442d-b1a1-9b754c17e457)
 
 ## 🤖 Instructions for Supporting Other Models 
 - **Welcome for PRs to support other models.**
