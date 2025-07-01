@@ -6,7 +6,7 @@
 ![Image](https://github.com/user-attachments/assets/79d5f654-5828-442d-b1a1-9b754c17e457)
 
 
-## 📈 Inference Latency Comparisons on a Single L20 GPU
+## 📈 Inference Latency Comparisons on a Single L20 GPU using ComfyUI
 
 
 |      FLUX.1 Kontext [dev]       |       MagCache (E005K4R02)  |   
@@ -16,7 +16,12 @@
 
 ## Usage
 
-Please try MagCache-Flux-Kontext in [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache). You can modify the '`magcache_thresh`', '`magcache_K`', and '`retention_ratio`' to obtain your desired trade-off between latency and visul quality.
+Please try MagCache-Flux-Kontext in [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache). You can modify the '`magcache_thresh`', '`magcache_K`', and '`retention_ratio`' to obtain your desired trade-off between latency and visul quality. For diffusers inference, you can also use the following command:
+
+```bash
+# please install the latest diffusers and transformers first.
+python magcache_flux_kontext.py
+```
 
 ## Citation
 If you find MagCache is useful in your research or applications, please consider giving us a star 🌟 and citing it by the following BibTeX entry.
