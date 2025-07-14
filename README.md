@@ -55,9 +55,10 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with [1,9x speedup] officially.
 - [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with [2x speedup] officially.
 - [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
-- [2025/6/17] 🔥 Support [VACE 1.3B](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) officially.
+- [2025/6/17] 🔥 Support [VACE](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) 1.3B&14B officially.
 - [2025/6/17] 🔥 MagCache is supported by [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper). Thanks @[kijai](https://github.com/kijai).
 - [2025/6/16] 🔥 Support [Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please try it in [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache).
 - [2025/6/12] 🔥 Support [ComfyUI-MagCache](https://github.com/Zehong-Ma/ComfyUI-MagCache) officially. Please have a try!
@@ -92,6 +93,7 @@ If you develop/use MagCache in your projects and you would like more people to s
 <!-- - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md) -->
 **Image Editing**
 - [MagCache4FLUX-Kontext](./MagCache4FLUX_Kontext/README.md)
+- [MagCache4OmniGen2](./MagCache4OmniGen2/README.md)
 
 **Demos**
 - **HunyuanVideo T2V 720P**
