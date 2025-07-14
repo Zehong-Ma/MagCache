@@ -1,7 +1,7 @@
 <!-- ## **MagCache4OmniGen2** -->
 # MagCache4OmniGen2
 
-[MagCache](https://github.com/Zehong-Ma/MagCache) can speedup [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) 1.8x without much visual quality degradation, in a training-free manner.
+[MagCache](https://github.com/Zehong-Ma/MagCache) can speedup [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) 1.9x without much visual quality degradation, in a training-free manner.
 
 ## 📈 Inference Latency Comparisons on a Single L20
 

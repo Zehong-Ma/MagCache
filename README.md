@@ -55,7 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
-- [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with [1,9x speedup] officially.
+- [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with [1.9x speedup] officially.
 - [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with [2x speedup] officially.
 - [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
 - [2025/6/17] 🔥 Support [VACE](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) 1.3B&14B officially.
