@@ -81,11 +81,9 @@ python magcache_generate.py --task i2v-A14B \
 <summary>Prompt: Two anthropomorphic cats in comfy boxing gear and bright gloves fight intensely on a spotlighted stage
 </details>
 
----
 
 <div align="center">
-  <video src="
-https://github.com/user-attachments/assets/ce9a3700-75f4-4177-81ec-d51572282324" width="100%" poster=""> </video>
+  <video src="https://github.com/user-attachments/assets/ce9a3700-75f4-4177-81ec-d51572282324" width="100%" poster=""> </video>
 </div>
 <details style="width: 100%; margin: auto;">
 <summary>Prompt: Summer beach vacation style, a white cat wearing sunglasses sits on a surfboard. The fluffy-furred feline gazes directly at the camera with a relaxed expression. Blurred beach scenery forms the background featuring crystal-clear waters, distant green hills, and a blue sky dotted with white clouds. The cat assumes a naturally relaxed posture, as if savoring the sea breeze and warm sunlight. A close-up shot highlights the feline's intricate details and the refreshing atmosphere of the seaside.
