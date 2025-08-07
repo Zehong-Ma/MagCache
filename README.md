@@ -55,6 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2025/8/7] 🔥 Support [Wan2.2](https://github.com/Wan-Video/Wan2.2) with [1.5-2x speedup] officially.
 - [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with [1.9x speedup] officially.
 - [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with [2x speedup] officially.
 - [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
@@ -76,6 +77,7 @@ If you develop/use MagCache in your projects and you would like more people to s
 
 ## 🎉 Supported Models 
 **Text to Video**
+- [MagCache4Wan2.1](./MagCache4Wan2.2/README.md)
 - [MagCache4Wan2.1](./MagCache4Wan2.1/README.md)
 - [MagCache4HunyuanVideo](./MagCache4HunyuanVideo/README.md)
 - [MagCache4Open-Sora](./eval/MagCache/README.md)
