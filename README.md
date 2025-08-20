@@ -55,9 +55,10 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
-- [2025/8/7] 🔥 Support [Wan2.2](https://github.com/Wan-Video/Wan2.2) with [1.5-2x speedup] officially.
-- [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with [1.9x speedup] officially.
-- [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with [2x speedup] officially.
+- [2025/8/20] 🔥 Support [Qwen-Image](https://github.com/QwenLM/Qwen-Image) and [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image) with 1.5x speedup officially.
+- [2025/8/7] 🔥 Support [Wan2.2](https://github.com/Wan-Video/Wan2.2) with 1.5-2x speedup officially.
+- [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with 1.9x speedup officially.
+- [2025/6/30] 🔥 Support [Flux-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) with 2x speedup officially.
 - [2025/6/19] 🔥 Support [FramePack](https://github.com/lllyasviel/FramePack) officially.
 - [2025/6/17] 🔥 Support [VACE](https://huggingface.co/Wan-AI/Wan2.1-VACE-1.3B-diffusers) 1.3B&14B officially.
 - [2025/6/17] 🔥 MagCache is supported by [ComfyUI-WanVideoWrapper](https://github.com/kijai/ComfyUI-WanVideoWrapper). Thanks @[kijai](https://github.com/kijai).
@@ -92,10 +93,12 @@ If you develop/use MagCache in your projects and you would like more people to s
 **Text to Image**
 - [MagCache4FLUX](./MagCache4FLUX/README.md)
 - [MagCache4Chroma](https://github.com/Zehong-Ma/ComfyUI-MagCache)
+- [MagCache4QwenImage](./MagCache4QwenImage/README.md)
 <!-- - [MagCache4FLUX-schnell](./MagCache4FLUX_schnell/README.md) -->
 **Image Editing**
 - [MagCache4FLUX-Kontext](./MagCache4FLUX_Kontext/README.md)
 - [MagCache4OmniGen2](./MagCache4OmniGen2/README.md)
+- [MagCache4QwenImageEdit](./MagCache4QwenImageEdit/README.md)
 
 **Demos**
 - **HunyuanVideo T2V 720P**

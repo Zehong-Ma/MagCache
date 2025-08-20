@@ -462,7 +462,6 @@ if len(pipeline.transformer.__class__.mag_ratios) != num_inference_steps:
     interpolated_mag_ratios = nearest_interp(pipeline.transformer.__class__.mag_ratios, num_inference_steps)
     pipeline.transformer.__class__.mag_ratios = interpolated_mag_ratios
         
-        
 # hyprameters: please modify the hyper-parameters to get a trade-off between latency and quality in your own task.
 pipeline.transformer.__class__.K = 5
 pipeline.transformer.__class__.magcache_thresh = 0.24 
