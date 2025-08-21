@@ -299,7 +299,7 @@ def magcache_forward(
             if self.cnt<int(self.split_step*self.retention_ratio) or (self.cnt<=((self.num_steps-self.split_step)*self.retention_ratio+self.split_step) and self.cnt>=self.split_step):
                 use_magcache = False
     else:
-        if self.cnt>=int(self.num_steps*self.retention_ratio): # ti2v
+        if self.cnt<int(self.num_steps*self.retention_ratio): # ti2v
             use_magcache = False
     if use_magcache:
         cur_mag_ratio = self.mag_ratios[self.cnt] # conditional and unconditional in one list
