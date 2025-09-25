@@ -1079,7 +1079,7 @@ def generate(args, prompt_list=None, save_dir=None):
     
 if __name__ == "__main__":
     args = _parse_args()
-    prompt_list = read_prompt_list("../../vbench/VBench_full_info.json")
+    prompt_list = read_prompt_list("../../../vbench/VBench_full_info.json")
 
     st_index = args.start_index
     end_index = args.end_index
