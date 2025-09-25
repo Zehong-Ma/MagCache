@@ -27,11 +27,32 @@ We first generate videos according to VBench's prompts.
 And then calculate PSNR, LPIPS and SSIM based on the video generated.
 
 1. Generate video
+
+### OpenSora
 ```
 cd eval/magcache
 # modify the hyper-parameters in line 420-422
 python experiments/opensora.py
 ```
+
+### Wan2.1
+```bash
+cd eval/Wan2.1_EVAL
+# git clone the official repository of Wan2.1
+git clone https://github.com/Wan-Video/Wan2.1.git
+cp *.py ./Wan2.1
+cp *.sh ./Wan2.1
+cd ./Wan2.1
+
+# Notice: we utilize the SDPA implementation of torch instead of flash_attn
+# by the following replacing operation and removing the FLASH_ATTN in attention.py.
+# Please read the code in ./wan/modules/model.py and ./wan/modules/attention.py for more details.
+# sed -i '10s/from .attention import flash_attention/from .attention import attention as flash_attention/' ./wan/modules/model.py
+
+# generate 946 videos for Table 1 and 100 videos for ablation
+sh wan_eval.sh # include the script for MagCache, TeaCache, and the original official version.
+```
+
 2. Calculate metrics
 ```
 # these metrics are calculated compared with original model
