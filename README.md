@@ -5,7 +5,7 @@
     <a href="https://zehong-ma.github.io/" target="_blank">Zehong Ma</a><sup>1,2</sup><sup>†</sup>,&nbsp;
   </span>
   <span class="author-block">
-    <a href="https://joinwei-pku.github.io/longhuiwei.github.io/" target="_blank">Longhui Wei</a><sup>2</sup><sup>‡</sup>,&nbsp;
+    <a href="https://joinwei-pku.github.io/longhuiwei.github.io/" target="_blank">Longhui Wei</a><sup>2</sup><sup>*</sup><sup>‡</sup>,&nbsp;
   </span>
   <span class="author-block">
     <a href="https://scholar.google.com/citations?user=bKG4Un8AAAAJ&hl=zh-CN" target="_blank">Feng Wang</a><sup>2</sup>,&nbsp;
@@ -14,7 +14,7 @@
     <a href="https://www.pkuvmc.com/" target="_blank">Shiliang Zhang</a><sup>1</sup><sup>*</sup>,&nbsp;
   </span>
   <span class="author-block">
-    <a href="https://www.qitian1987.com/" target="_blank">Qi Tian</a><sup>2</sup><sup>*</sup>
+    <a href="https://www.qitian1987.com/" target="_blank">Qi Tian</a><sup>2</sup>
   </span>
 </div>
 
@@ -55,6 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2025/11/17] 🔥Accepted by NeurIPS 2025. Welcome to follow and improve MagCache.
 - [2025/8/20] 🔥 Support [Qwen-Image](https://github.com/QwenLM/Qwen-Image) and [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image) with 1.5x speedup officially.
 - [2025/8/7] 🔥 Support [Wan2.2](https://github.com/Wan-Video/Wan2.2) with 1.5-2x speedup officially.
 - [2025/7/14] 🔥 Support [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) with 1.9x speedup officially.
@@ -274,14 +275,13 @@ This repository is built based on [VideoSys](https://github.com/NUS-HPC-AI-Lab/V
 If you find MagCache is useful in your research or applications, please consider giving us a star ⭐ and citing it by the following BibTeX entry.
 
 ```
-@misc{ma2025magcachefastvideogeneration,
-      title={MagCache: Fast Video Generation with Magnitude-Aware Cache}, 
-      author={Zehong Ma and Longhui Wei and Feng Wang and Shiliang Zhang and Qi Tian},
-      year={2025},
-      eprint={2506.09045},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2506.09045}, 
+@inproceedings{
+  ma2025magcache,
+  title={MagCache: Fast Video Generation with Magnitude-Aware Cache},
+  author={Zehong Ma and Longhui Wei and Feng Wang and Shiliang Zhang and Qi Tian},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+  year={2025},
+  url={https://openreview.net/forum?id=KZn7TDOL4J}
 }
 ```
 
