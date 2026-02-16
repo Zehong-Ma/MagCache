@@ -55,6 +55,7 @@ We introduce Magnitude-aware Cache (MagCache), a training-free caching approach 
 
 ## 🔥 Latest News 
 - **If you like our project, please give us a star ⭐ on GitHub for the latest update.**
+- [2026/02/02] 🧨 MagCache is now natively supported in Diffusers. Thanks to @AlanPonnachan for [contributing](https://github.com/huggingface/diffusers/pull/12744) it.
 - [2025/11/17] 🔥Accepted by NeurIPS 2025. Welcome to follow and improve MagCache.
 - [2025/8/20] 🔥 Support [Qwen-Image](https://github.com/QwenLM/Qwen-Image) and [Qwen-Image-Edit](https://github.com/QwenLM/Qwen-Image) with 1.5x speedup officially.
 - [2025/8/7] 🔥 Support [Wan2.2](https://github.com/Wan-Video/Wan2.2) with 1.5-2x speedup officially.
